@@ -11,7 +11,7 @@ import java.io.IOException;
 public class ApplicationMain extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("loginLayout.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("layout/loginLayout.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Leo Coffee Shop");
         stage.setMinHeight(410);

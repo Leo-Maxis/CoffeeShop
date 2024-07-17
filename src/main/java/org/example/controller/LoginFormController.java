@@ -1,4 +1,4 @@
-package org.example.coffeeshop;
+package org.example.controller;
 
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
@@ -66,8 +66,18 @@ public class LoginFormController implements Initializable {
     private PreparedStatement preparedStatement;
     private ResultSet resultSet;
 
-    public void regBtn() {
+    private Alert alert;
 
+    public void regBtn() {
+        if (su_username.getText().isEmpty() || su_password.getText().isEmpty() || su_question.getSelectionModel().getSelectedItem() == null || su_answer.getText().isEmpty()) {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Message");
+            alert.setHeaderText(null);
+            alert.setContentText("Please fill all blank fields");
+            alert.showAndWait();
+        } else {
+
+        }
     }
 
     // load data to combox questions
