@@ -10,7 +10,7 @@ public class DBHelper {
     public static final String USERNAME = "sa";
     public static final String PASSWORD = "123123qwe";
 
-    public static Connection getConnetion() throws SQLException, ClassNotFoundException {
+    public static Connection getConnection() throws SQLException, ClassNotFoundException {
         return getConnection(DB_NAME, USERNAME, PASSWORD);
     }
     public static Connection getConnection(String dbName, String userName, String passowrd) throws SQLException, ClassNotFoundException {

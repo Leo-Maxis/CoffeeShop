@@ -9,6 +9,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import org.example.dao.EmployeeDAO;
+import org.example.entity.Employee;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -62,12 +64,13 @@ public class LoginFormController implements Initializable {
     @FXML
     private Button side_alreadyHave;
 
-    private Connection connect;
-    private PreparedStatement preparedStatement;
-    private ResultSet resultSet;
+//    private Connection connect;
+//    private PreparedStatement preparedStatement;
+//    private ResultSet resultSet;
 
     private Alert alert;
 
+    //register user (insert employee)
     public void regBtn() {
         if (su_username.getText().isEmpty() || su_password.getText().isEmpty() || su_question.getSelectionModel().getSelectedItem() == null || su_answer.getText().isEmpty()) {
             alert = new Alert(Alert.AlertType.ERROR);
@@ -76,7 +79,36 @@ public class LoginFormController implements Initializable {
             alert.setContentText("Please fill all blank fields");
             alert.showAndWait();
         } else {
+            try {
+                Employee entity = new Employee();
+                entity.setUsername(su_username.getText());
+                entity.setPassword(su_password.getText());
+                entity.setQuestion(su_question.getSelectionModel().getSelectedItem().toString());
+                entity.setAnswer(su_answer.getText());
+                EmployeeDAO dao = new EmployeeDAO();
+                entity = dao.insert(entity);
 
+                alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Infomation");
+                alert.setHeaderText(null);
+                alert.setContentText("Successfully registered Account!");
+                alert.showAndWait();
+                su_username.setText("");
+                su_password.setText("");
+                su_question.getSelectionModel().clearSelection();
+                su_answer.setText("");
+                TranslateTransition slider = new TranslateTransition();
+                slider.setNode(side_form);
+                slider.setToX(0);
+                slider.setDuration(Duration.seconds(.5));
+                slider.setOnFinished((ActionEvent e) -> {
+                    side_alreadyHave.setVisible(false);
+                    side_CreateBtn.setVisible(true);
+                });
+                slider.play();
+            }catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
