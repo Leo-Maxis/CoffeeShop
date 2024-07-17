@@ -1,6 +1,8 @@
 package org.example.coffeeshop;
 
 import javafx.animation.TranslateTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -9,10 +11,15 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 
-public class HelloController implements Initializable {
+public class LoginFormController implements Initializable {
     @FXML
     private Hyperlink si_forgot;
 
@@ -55,6 +62,25 @@ public class HelloController implements Initializable {
     @FXML
     private Button side_alreadyHave;
 
+    private Connection connect;
+    private PreparedStatement preparedStatement;
+    private ResultSet resultSet;
+
+    public void regBtn() {
+
+    }
+
+    // load data to combox questions
+    private String[] questionList = {"What is your favorite color?", "What is your  favorite food?", "What is your birthday?"};
+    public void regQuestionList() {
+        List<String> listQ = new ArrayList<>();
+        for(String data : questionList) {
+            listQ.add(data);
+        }
+        ObservableList listData = FXCollections.observableArrayList(listQ);
+        su_question.setItems(listData);
+    }
+
     //login form <-> register form
     public void switchForm(ActionEvent event) {
         TranslateTransition slider = new TranslateTransition();
@@ -65,6 +91,7 @@ public class HelloController implements Initializable {
             slider.setOnFinished((ActionEvent e) -> {
                 side_alreadyHave.setVisible(true);
                 side_CreateBtn.setVisible(false);
+                regQuestionList();
             });
             slider.play();
         } else if (event.getSource() == side_alreadyHave) {

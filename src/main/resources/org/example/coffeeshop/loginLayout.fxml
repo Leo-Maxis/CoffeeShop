@@ -11,11 +11,11 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.coffeeshop.HelloController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.coffeeshop.LoginFormController">
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
-            <AnchorPane fx:id="si_loginForm" layoutX="300.0" layoutY="3.0" prefHeight="400.0" prefWidth="300.0" styleClass="white-form" stylesheets="@layoutDesgin/LoginDesign.css">
+            <AnchorPane fx:id="si_loginForm" layoutX="300.0" layoutY="3.0" prefHeight="400.0" prefWidth="300.0" styleClass="white-form" stylesheets="@layoutDesgin/LoginDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Label layoutX="22.0" layoutY="79.0" styleClass="head-label" stylesheets="@layoutDesgin/LoginDesign.css" text="Login Account" textFill="#286155">
                      <font>
@@ -28,7 +28,7 @@
                   <Hyperlink fx:id="si_forgot" layoutX="33.0" layoutY="238.0" text="Forgot password?" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="su_signupForm" layoutY="3.0" prefHeight="400.0" prefWidth="300.0" styleClass="white-form" stylesheets="@layoutDesgin/LoginDesign.css">
+            <AnchorPane fx:id="su_signupForm" layoutY="3.0" prefHeight="400.0" prefWidth="300.0" styleClass="white-form" stylesheets="@layoutDesgin/LoginDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Label layoutX="22.0" layoutY="79.0" styleClass="head-label" stylesheets="@layoutDesgin/LoginDesign.css" text="Register Account" textFill="#286155">
                      <font>
@@ -42,14 +42,14 @@
                   <TextField fx:id="su_answer" layoutX="33.0" layoutY="266.0" prefHeight="38.0" prefWidth="234.0" promptText="Answer" styleClass="text-field" stylesheets="@layoutDesgin/LoginDesign.css" />
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="side_form" prefHeight="400.0" prefWidth="300.0" styleClass="gradient" stylesheets="@layoutDesgin/LoginDesign.css">
+            <AnchorPane fx:id="side_form" prefHeight="400.0" prefWidth="300.0" styleClass="gradient" stylesheets="@layoutDesgin/LoginDesign.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Label layoutX="86.0" layoutY="291.0" text="Create Account" textFill="WHITE">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <Button fx:id="side_CreateBtn" layoutX="37.0" layoutY="340.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="46.0" prefWidth="234.0" styleClass="create-btn" stylesheets="@layoutDesgin/LoginDesign.css" text="Create new Account" />
+                  <Button fx:id="side_CreateBtn" layoutX="37.0" layoutY="340.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="46.0" prefWidth="234.0" styleClass="create-btn" stylesheets="@layoutDesgin/LoginDesign.css" text="Create new Account" AnchorPane.bottomAnchor="17.0" />
                   <Button fx:id="side_alreadyHave" layoutX="37.0" layoutY="340.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="46.0" prefWidth="234.0" styleClass="create-btn" stylesheets="@layoutDesgin/LoginDesign.css" text="Already have an Acoount" visible="false" />
                   <FontAwesomeIconView fill="WHITE" glyphName="COFFEE" layoutX="90.0" layoutY="193.0" size="10EM" />
                   <Label layoutX="115.0" layoutY="210.0" text="Leo Coffee" textFill="WHITE">
