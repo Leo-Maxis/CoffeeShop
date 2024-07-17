@@ -4,9 +4,7 @@ import org.example.database.DBHelper;
 import org.example.entity.Employee;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class EmployeeDAO {
     public Employee insert (Employee entity) throws SQLException, ClassNotFoundException {
@@ -36,7 +34,6 @@ public class EmployeeDAO {
         String sql = "select username from employee where username =?";
         try (Connection connection = DBHelper.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            List<Employee> listEmployee = new ArrayList<>();
             preparedStatement.setString(1, username);
             try(ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
@@ -46,4 +43,23 @@ public class EmployeeDAO {
             return false;
         }
     }
+
+    public Employee userLogin(String username, String password) throws SQLException, ClassNotFoundException {
+        String sql = "select * from employee where username =? and password =?";
+        try (Connection connection = DBHelper.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, password);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    Employee employee = new Employee();
+                    employee.getUsername();
+                    employee.getPassword();
+                    return employee;
+                }
+            }
+            return null;
+        }
+    }
+
 }

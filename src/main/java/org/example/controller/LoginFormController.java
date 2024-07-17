@@ -13,9 +13,6 @@ import org.example.dao.EmployeeDAO;
 import org.example.entity.Employee;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -64,13 +61,8 @@ public class LoginFormController implements Initializable {
     @FXML
     private Button side_alreadyHave;
 
-//    private Connection connect;
-//    private PreparedStatement preparedStatement;
-//    private ResultSet resultSet;
 
     private Alert alert;
-
-
 
     //register user (insert employee)
     public void regBtn() {
@@ -126,6 +118,39 @@ public class LoginFormController implements Initializable {
                         side_CreateBtn.setVisible(true);
                     });
                     slider.play();
+                }
+            }catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    //Login
+    public void loginBtn() {
+        if (si_username.getText().isEmpty() || si_password.getText().isEmpty()) {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Message");
+            alert.setHeaderText(null);
+            alert.setContentText("Username or password can't be empty!");
+            alert.showAndWait();
+        } else {
+            try {
+                String username = si_username.getText();
+                String password = si_password.getText();
+                EmployeeDAO dao = new EmployeeDAO();
+                Employee entity = dao.userLogin(username, password);
+                if (entity != null) {
+                    alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Successfully Login!");
+                    alert.showAndWait();
+                } else {
+                    alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Incorrect Username/Password!");
+                    alert.showAndWait();
                 }
             }catch (Exception ex) {
                 ex.printStackTrace();
