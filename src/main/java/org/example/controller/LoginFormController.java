@@ -70,6 +70,8 @@ public class LoginFormController implements Initializable {
 
     private Alert alert;
 
+
+
     //register user (insert employee)
     public void regBtn() {
         if (su_username.getText().isEmpty() || su_password.getText().isEmpty() || su_question.getSelectionModel().getSelectedItem() == null || su_answer.getText().isEmpty()) {
@@ -80,32 +82,51 @@ public class LoginFormController implements Initializable {
             alert.showAndWait();
         } else {
             try {
-                Employee entity = new Employee();
-                entity.setUsername(su_username.getText());
-                entity.setPassword(su_password.getText());
-                entity.setQuestion(su_question.getSelectionModel().getSelectedItem().toString());
-                entity.setAnswer(su_answer.getText());
-                EmployeeDAO dao = new EmployeeDAO();
-                entity = dao.insert(entity);
+                //Check if the username already recorded
+                String checkUsername = su_username.getText();
+                EmployeeDAO employeeDao = new EmployeeDAO();
+                boolean loadUsername = employeeDao.findUsername(checkUsername);
+                if (loadUsername) {
+                    alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText(su_username.getText() + " is already taken");
+                    alert.showAndWait();
+                } else if (su_password.getText().length() < 8) {
+                    alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Invalid password, atleast 8 characters are needed!");
+                    alert.showAndWait();
+                } else {
+                    //insert employee
+                    Employee entity = new Employee();
+                    entity.setUsername(su_username.getText());
+                    entity.setPassword(su_password.getText());
+                    entity.setQuestion(su_question.getSelectionModel().getSelectedItem().toString());
+                    entity.setAnswer(su_answer.getText());
+                    EmployeeDAO dao = new EmployeeDAO();
+                    entity = dao.insert(entity);
 
-                alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Infomation");
-                alert.setHeaderText(null);
-                alert.setContentText("Successfully registered Account!");
-                alert.showAndWait();
-                su_username.setText("");
-                su_password.setText("");
-                su_question.getSelectionModel().clearSelection();
-                su_answer.setText("");
-                TranslateTransition slider = new TranslateTransition();
-                slider.setNode(side_form);
-                slider.setToX(0);
-                slider.setDuration(Duration.seconds(.5));
-                slider.setOnFinished((ActionEvent e) -> {
-                    side_alreadyHave.setVisible(false);
-                    side_CreateBtn.setVisible(true);
-                });
-                slider.play();
+                    alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Infomation");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Successfully registered Account!");
+                    alert.showAndWait();
+                    su_username.setText("");
+                    su_password.setText("");
+                    su_question.getSelectionModel().clearSelection();
+                    su_answer.setText("");
+                    TranslateTransition slider = new TranslateTransition();
+                    slider.setNode(side_form);
+                    slider.setToX(0);
+                    slider.setDuration(Duration.seconds(.5));
+                    slider.setOnFinished((ActionEvent e) -> {
+                        side_alreadyHave.setVisible(false);
+                        side_CreateBtn.setVisible(true);
+                    });
+                    slider.play();
+                }
             }catch (Exception ex) {
                 ex.printStackTrace();
             }
