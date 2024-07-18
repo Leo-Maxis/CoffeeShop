@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,6 +21,39 @@ import java.util.ResourceBundle;
 
 public class LoginFormController implements Initializable {
     @FXML
+    private TextField fp_answer;
+
+    @FXML
+    private FontAwesomeIconView fp_back;
+
+    @FXML
+    private Button fp_proceedBtn;
+
+    @FXML
+    private ComboBox<?> fp_question;
+
+    @FXML
+    private AnchorPane fp_questionForm;
+
+    @FXML
+    private TextField fp_username;
+
+    @FXML
+    private Button np_back;
+
+    @FXML
+    private Button np_changePassBtn;
+
+    @FXML
+    private PasswordField np_confirmPassword;
+
+    @FXML
+    private AnchorPane np_newPassForm;
+
+    @FXML
+    private PasswordField np_newPassword;
+
+    @FXML
     private Hyperlink si_forgot;
 
     @FXML
@@ -36,6 +70,9 @@ public class LoginFormController implements Initializable {
 
     @FXML
     private Button side_CreateBtn;
+
+    @FXML
+    private Button side_alreadyHave;
 
     @FXML
     private AnchorPane side_form;
@@ -57,9 +94,6 @@ public class LoginFormController implements Initializable {
 
     @FXML
     private TextField su_username;
-
-    @FXML
-    private Button side_alreadyHave;
 
 
     private Alert alert;
@@ -169,6 +203,56 @@ public class LoginFormController implements Initializable {
         su_question.setItems(listData);
     }
 
+    //forgot password
+    public void switchForgotPassword() {
+        fp_questionForm.setVisible(true);
+        si_loginForm.setVisible(false);
+        forgotPassQuestionList();
+    }
+
+
+    //proceed Button
+    public void proceedBtn() {
+        if (fp_username.getText().isEmpty() || fp_question.getSelectionModel().getSelectedItem() == null || fp_answer.getText().isEmpty()) {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Message");
+            alert.setHeaderText(null);
+            alert.setContentText("Please fill all blank fields");
+            alert.showAndWait();
+        } else {
+            try {
+                String username = fp_username.getText();
+                String question = String.valueOf(fp_question.getSelectionModel().getSelectedItem());
+                String answer = fp_answer.getText();
+                EmployeeDAO employeeDAO = new EmployeeDAO();
+                Employee entity = employeeDAO.forgotPassword(username, question, answer);
+                if (entity != null) {
+                    np_newPassForm.setVisible(true);
+                    fp_questionForm.setVisible(false);
+                } else {
+                    alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Incorrect Information");
+                    alert.showAndWait();
+                }
+            }catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+
+    public void forgotPassQuestionList() {
+        List<String> listQ = new ArrayList<>();
+        for (String data: questionList) {
+            listQ.add(data);
+        }
+        ObservableList listData = FXCollections.observableArrayList(listQ);
+        fp_question.setItems(listData);
+    }
+
+
     //login form <-> register form
     public void switchForm(ActionEvent event) {
         TranslateTransition slider = new TranslateTransition();
@@ -179,6 +263,10 @@ public class LoginFormController implements Initializable {
             slider.setOnFinished((ActionEvent e) -> {
                 side_alreadyHave.setVisible(true);
                 side_CreateBtn.setVisible(false);
+
+                fp_questionForm.setVisible(false);
+                si_loginForm.setVisible(true);
+                np_newPassForm.setVisible(false);
                 regQuestionList();
             });
             slider.play();
@@ -189,6 +277,10 @@ public class LoginFormController implements Initializable {
             slider.setOnFinished((ActionEvent e) -> {
                 side_alreadyHave.setVisible(false);
                 side_CreateBtn.setVisible(true);
+
+                fp_questionForm.setVisible(false);
+                si_loginForm.setVisible(true);
+                np_newPassForm.setVisible(false);
             });
             slider.play();
         }

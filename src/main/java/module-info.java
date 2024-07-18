@@ -11,6 +11,7 @@ module org.example.coffeeshop {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires java.sql;
+    requires de.jensd.fx.glyphs.fontawesome;
 
     opens org.example.coffeeshop to javafx.fxml;
     exports org.example.coffeeshop;

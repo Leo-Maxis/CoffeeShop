@@ -62,4 +62,24 @@ public class EmployeeDAO {
         }
     }
 
+    public Employee forgotPassword(String username, String question, String answer) throws SQLException, ClassNotFoundException {
+        String sql = "Select * from employee where username =? and question =? and answer =?";
+        try (Connection connection = DBHelper.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, question);
+            preparedStatement.setString(3, answer);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    Employee employee = new Employee();
+                    employee.getUsername();
+                    employee.getQuestion();
+                    employee.getAnswer();
+                    return employee;
+                }
+            }
+            return null;
+        }
+    }
+
 }
