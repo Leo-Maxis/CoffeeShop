@@ -83,13 +83,16 @@ public class EmployeeDAO {
     }
 
     public boolean updatePassword(Employee employee) throws SQLException, ClassNotFoundException {
-        String sql = "update employee set username =?, password =?, question =?, answer =?";
+        String sql = "update employee set password =?, question =?, answer =?, date =? where usernamne =?";
         try (Connection connection = DBHelper.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, employee.getUsername());
-            preparedStatement.setString(2, employee.getPassword());
-            preparedStatement.setString(3, employee.getQuestion());
-            preparedStatement.setString(4, employee.getAnswer());
+            preparedStatement.setString(1, employee.getPassword());
+            preparedStatement.setString(2, employee.getQuestion());
+            preparedStatement.setString(3, employee.getAnswer());
+            Date date = new Date();
+            java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+            preparedStatement.setDate(4, sqlDate);
+            preparedStatement.setString(5, employee.getUsername());
             return  preparedStatement.executeUpdate() > 0;
         }
     }

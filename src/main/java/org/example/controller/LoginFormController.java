@@ -253,6 +253,25 @@ public class LoginFormController implements Initializable {
         } else {
             try {
                 Employee employee = new Employee();
+                employee.setPassword(np_newPassword.getText());
+                employee.setQuestion(String.valueOf(fp_question.getSelectionModel().getSelectedItem()));
+                employee.setAnswer(fp_answer.getText());
+                employee.setUsername(fp_username.getText());
+                EmployeeDAO dao = new EmployeeDAO();
+                var result = dao.updatePassword(employee);
+                if (result) {
+                    alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Successfully changed Password!");
+                    alert.showAndWait();
+                } else {
+                    alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Can't change new password!");
+                    alert.showAndWait();
+                }
 
             } catch (Exception ex) {
                 ex.printStackTrace();
