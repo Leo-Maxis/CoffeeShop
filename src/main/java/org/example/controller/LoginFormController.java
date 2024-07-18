@@ -251,30 +251,47 @@ public class LoginFormController implements Initializable {
             alert.setContentText("Please fill all blank fields");
             alert.showAndWait();
         } else {
-            try {
-                Employee employee = new Employee();
-                employee.setPassword(np_newPassword.getText());
-                employee.setQuestion(String.valueOf(fp_question.getSelectionModel().getSelectedItem()));
-                employee.setAnswer(fp_answer.getText());
-                employee.setUsername(fp_username.getText());
-                EmployeeDAO dao = new EmployeeDAO();
-                var result = dao.updatePassword(employee);
-                if (result) {
-                    alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Information Message");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Successfully changed Password!");
-                    alert.showAndWait();
-                } else {
-                    alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error Message");
-                    alert.setHeaderText(null);
-                    alert.setContentText("Can't change new password!");
-                    alert.showAndWait();
-                }
+            if(np_newPassword.getText().equals(np_confirmPassword.getText())) {
+                try {
+                    Employee employee = new Employee();
+                    employee.setPassword(np_newPassword.getText());
+                    employee.setQuestion(String.valueOf(fp_question.getSelectionModel().getSelectedItem()));
+                    employee.setAnswer(fp_answer.getText());
+                    employee.setUsername(fp_username.getText());
+                    EmployeeDAO dao = new EmployeeDAO();
+                    var result = dao.updatePassword(employee);
+                    if (result) {
+                        alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Information Message");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Successfully changed Password!");
+                        alert.showAndWait();
 
-            } catch (Exception ex) {
-                ex.printStackTrace();
+                        si_loginForm.setVisible(true);
+                        np_newPassForm.setVisible(false);
+
+                        np_newPassword.setText("");
+                        np_confirmPassword.setText("");
+                        fp_question.getSelectionModel().clearSelection();
+                        fp_answer.setText("");
+                        fp_username.setText("");
+                    } else {
+                        alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error Message");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Can't change new password!");
+                        alert.showAndWait();
+                    }
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            } else {
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Confirm Password is not match new password!");
+                alert.showAndWait();
             }
         }
     }
@@ -289,6 +306,16 @@ public class LoginFormController implements Initializable {
         fp_question.setItems(listData);
     }
 
+    //back button
+    public void backToLoginForm() {
+        si_loginForm.setVisible(true);
+        fp_questionForm.setVisible(false);
+    }
+
+    public void backToForgotForm() {
+        fp_questionForm.setVisible(true);
+        np_newPassForm.setVisible(false);
+    }
 
     //login form <-> register form
     public void switchForm(ActionEvent event) {
