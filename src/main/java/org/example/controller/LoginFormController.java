@@ -242,6 +242,24 @@ public class LoginFormController implements Initializable {
         }
     }
 
+    //change password
+    public void changePassBtn() {
+        if (np_newPassword.getText().isEmpty() || np_confirmPassword.getText().isEmpty()) {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Message");
+            alert.setHeaderText(null);
+            alert.setContentText("Please fill all blank fields");
+            alert.showAndWait();
+        } else {
+            try {
+                Employee employee = new Employee();
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
 
     public void forgotPassQuestionList() {
         List<String> listQ = new ArrayList<>();
