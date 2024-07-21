@@ -151,6 +151,22 @@
                                     <String fx:value="radius" />
                                     <String fx:value="shadow" />
                                  </styleClass>
+                                 <children>
+                                    <AnchorPane layoutX="14.0" layoutY="15.0" prefHeight="355.0" prefWidth="500.0" stylesheets="@../layoutDesgin/MainDesign.css" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="336.0" AnchorPane.topAnchor="15.0">
+                                       <styleClass>
+                                          <String fx:value="white-bg" />
+                                          <String fx:value="shadow" />
+                                          <String fx:value="radius" />
+                                       </styleClass>
+                                    </AnchorPane>
+                                    <AnchorPane layoutX="531.0" layoutY="15.0" prefHeight="355.0" prefWidth="305.0" stylesheets="@../layoutDesgin/MainDesign.css" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="15.0">
+                                       <styleClass>
+                                          <String fx:value="white-bg" />
+                                          <String fx:value="shadow" />
+                                          <String fx:value="radius" />
+                                       </styleClass>
+                                    </AnchorPane>
+                                 </children>
                               </AnchorPane>
                               <Separator layoutX="13.0" layoutY="190.0" prefHeight="4.0" prefWidth="851.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="190.0" />
                            </children>
