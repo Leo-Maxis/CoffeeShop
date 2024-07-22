@@ -6,9 +6,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.example.dao.EmployeeDAO;
 import org.example.entity.Employee;
@@ -179,6 +183,19 @@ public class LoginFormController implements Initializable {
                     alert.setHeaderText(null);
                     alert.setContentText("Successfully Login!");
                     alert.showAndWait();
+
+                    //Show main form
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("layout/mainLayout.fxml"));
+                    Stage stage = new Stage();
+                    Scene scene = new Scene(fxmlLoader.load());
+                    stage.setTitle("Leo coffee Management System");
+                    stage.setMinWidth(1100);
+                    stage.setMinHeight(600);
+                    stage.setScene(scene);
+                    stage.show();
+
+                    si_loginBtn.getScene().getWindow().hide();
+
                 } else {
                     alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error Message");
