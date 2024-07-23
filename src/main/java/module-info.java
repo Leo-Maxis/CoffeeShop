@@ -17,4 +17,6 @@ module org.example.coffeeshop {
     exports org.example.coffeeshop;
     exports org.example.controller;
     opens org.example.controller to javafx.fxml;
+    exports org.example.entity;
+    opens org.example.entity to javafx.fxml;
 }

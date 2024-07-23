@@ -185,7 +185,7 @@ public class LoginFormController implements Initializable {
                     alert.showAndWait();
 
                     //Show main form
-                    Parent root = FXMLLoader.load(getClass().getResource("org/example/coffeeshop/layout/mainLayout.fxml"));
+                    Parent root = FXMLLoader.load(getClass().getResource("/org/example/coffeeshop/layout/mainLayout.fxml"));
                     Stage stage = new Stage();
                     Scene scene = new Scene(root);
                     stage.setTitle("Leo coffee Management System");
