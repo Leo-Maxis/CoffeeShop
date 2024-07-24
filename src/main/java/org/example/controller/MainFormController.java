@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.example.entity.Data;
+import org.example.entity.Product;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -107,6 +108,10 @@ public class MainFormController implements Initializable {
     private Label username_lbl;
 
     private Alert alert;
+
+    public ObservableList<Product> inventoryProductsList() {
+        ObservableList<Product> productsListData = FXCollections.observableArrayList();
+    }
 
     //combobox type
     private String [] typeList = {"Meals", "Drinks"};
