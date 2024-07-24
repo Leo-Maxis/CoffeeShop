@@ -6,6 +6,7 @@ public class Product {
     private int id;
     private String productID;
     private String productName;
+    private String type;
     private int stock;
     private Double price;
     private String status;
@@ -16,10 +17,11 @@ public class Product {
 
     }
 
-    public Product(int id, String productID, String productName, int stock, Double price, String status, String image, Date date) {
+    public Product(int id, String productID, String productName, String type, int stock, Double price, String status, String image, Date date) {
         this.id = id;
         this.productID = productID;
         this.productName = productName;
+        this.type = type;
         this.stock = stock;
         this.price = price;
         this.status = status;
@@ -49,6 +51,14 @@ public class Product {
 
     public void setProductName(String productName) {
         this.productName = productName;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public int getStock() {
