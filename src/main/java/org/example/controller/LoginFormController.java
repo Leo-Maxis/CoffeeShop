@@ -15,6 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.example.dao.EmployeeDAO;
+import org.example.entity.Data;
 import org.example.entity.Employee;
 
 import java.net.URL;
@@ -178,6 +179,9 @@ public class LoginFormController implements Initializable {
                 EmployeeDAO dao = new EmployeeDAO();
                 Employee entity = dao.userLogin(username, password);
                 if (entity != null) {
+                    //Get the username login
+                    Data.setUsername(si_username.getText());
+
                     alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Information Message");
                     alert.setHeaderText(null);

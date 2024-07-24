@@ -13,7 +13,7 @@ public class ApplicationMain extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("layout/loginLayout.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Leo Coffee Shop");
+        stage.setTitle("Leo Coffee Shop Login");
         stage.setMinHeight(410);
         stage.setMinWidth(610);
         stage.setScene(scene);

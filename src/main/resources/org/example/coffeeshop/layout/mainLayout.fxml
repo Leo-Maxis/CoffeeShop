@@ -20,7 +20,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.controller.MainFormController">
    <children>
       <AnchorPane fx:id="main_form" prefHeight="200.0" prefWidth="200.0">
          <children>
@@ -53,7 +53,7 @@
                               <Button fx:id="inventory_btn" layoutX="6.0" layoutY="221.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="210.0" styleClass="nav-btn" stylesheets="@../layoutDesgin/MainDesign.css" text="Inventory" />
                               <Button fx:id="menu_btn" layoutX="6.0" layoutY="274.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="210.0" styleClass="nav-btn" stylesheets="@../layoutDesgin/MainDesign.css" text="Menu" />
                               <Button fx:id="customers_btn" layoutX="6.0" layoutY="326.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="210.0" styleClass="nav-btn" stylesheets="@../layoutDesgin/MainDesign.css" text="Customers" />
-                              <Button fx:id="logout_btn" layoutX="14.0" layoutY="561.0" mnemonicParsing="false" stylesheets="@../layoutDesgin/MainDesign.css" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="14.0">
+                              <Button fx:id="logout_btn" layoutX="14.0" layoutY="561.0" mnemonicParsing="false" onAction="#logOut" stylesheets="@../layoutDesgin/MainDesign.css" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="14.0">
                                  <graphic>
                                     <FontAwesomeIconView fill="WHITE" glyphName="SIGN_OUT" size="2em" />
                                  </graphic>
@@ -233,15 +233,15 @@
                                  </styleClass>
                                  <children>
                                     <Label layoutX="37.0" layoutY="34.0" text="Product ID:" />
-                                    <TextField layoutX="137.0" layoutY="30.0" />
+                                    <TextField fx:id="iventory_ProductID" layoutX="137.0" layoutY="30.0" />
                                     <Label layoutX="37.0" layoutY="70.0" text="Product Name:" />
-                                    <TextField layoutX="137.0" layoutY="66.0" />
+                                    <TextField fx:id="iventory_ProductName" layoutX="137.0" layoutY="66.0" />
                                     <Label layoutX="37.0" layoutY="108.0" text="Product Type:  " />
-                                    <ComboBox layoutX="137.0" layoutY="104.0" prefWidth="150.0" promptText="Choose Type..." />
+                                    <ComboBox fx:id="iventory_type" layoutX="137.0" layoutY="104.0" prefWidth="150.0" promptText="Choose Type..." />
                                     <Label layoutX="379.0" layoutY="34.0" text="Stock:" />
-                                    <TextField layoutX="442.0" layoutY="30.0" promptText="0" />
+                                    <TextField fx:id="iventory_stock" layoutX="442.0" layoutY="30.0" promptText="0" />
                                     <Label layoutX="379.0" layoutY="70.0" text="Price ($):" />
-                                    <TextField layoutX="442.0" layoutY="66.0" promptText="\$0.0" />
+                                    <TextField fx:id="iventory_price" layoutX="442.0" layoutY="66.0" promptText="\$0.0" />
                                     <AnchorPane layoutX="716.0" layoutY="15.0" prefHeight="134.0" prefWidth="120.0" stylesheets="@../layoutDesgin/MainDesign.css" AnchorPane.rightAnchor="14.0">
                                        <styleClass>
                                           <String fx:value="white-bg" />
@@ -257,7 +257,7 @@
                                     <Button fx:id="inventory_clearBtn" layoutX="280.0" layoutY="179.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="94.0" styleClass="btn" stylesheets="@../layoutDesgin/MainDesign.css" text="Clear" AnchorPane.bottomAnchor="35.0" />
                                     <Button fx:id="inventory_deleteBtn" layoutX="396.0" layoutY="179.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="94.0" styleClass="btn" stylesheets="@../layoutDesgin/MainDesign.css" text="Delete" AnchorPane.bottomAnchor="35.0" />
                                     <Label layoutX="380.0" layoutY="108.0" text="Status:" />
-                                    <ComboBox layoutX="441.0" layoutY="104.0" prefWidth="150.0" promptText="Choose Status..." />
+                                    <ComboBox fx:id="iventory_status" layoutX="441.0" layoutY="104.0" prefWidth="150.0" promptText="Choose Status..." />
                                  </children>
                               </AnchorPane>
                               <Separator layoutX="15.0" layoutY="319.0" prefHeight="4.0" prefWidth="849.0" AnchorPane.bottomAnchor="270.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="14.0" />
