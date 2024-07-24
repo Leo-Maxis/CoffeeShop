@@ -118,6 +118,16 @@ public class MainFormController implements Initializable {
         iventory_type.setItems(listData);
     }
 
+    private String[] statusList = {"Available", "unavailable"};
+    public void inventoryStatusList() {
+        List<String> statusL = new ArrayList<>();
+        for (String data : statusList) {
+            statusL.add(data);
+        }
+        ObservableList listData = FXCollections.observableArrayList(statusL);
+        iventory_status.setItems(listData);
+    }
+
     public void logOut() {
         try {
             alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -151,5 +161,6 @@ public class MainFormController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         displayUsername();
         inventoryTypeList();
+        inventoryStatusList();
     }
 }
