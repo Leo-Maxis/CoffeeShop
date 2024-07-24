@@ -107,8 +107,9 @@ public class MainFormController implements Initializable {
     private Label username_lbl;
 
     private Alert alert;
-    private String [] typeList = {"Meals", "Drinks"};
 
+    //combobox type
+    private String [] typeList = {"Meals", "Drinks"};
     public void inventoryTypeList() {
         List<String> typeL = new ArrayList<>();
         for (String data : typeList) {
@@ -118,6 +119,7 @@ public class MainFormController implements Initializable {
         iventory_type.setItems(listData);
     }
 
+    //combobox status
     private String[] statusList = {"Available", "unavailable"};
     public void inventoryStatusList() {
         List<String> statusL = new ArrayList<>();
