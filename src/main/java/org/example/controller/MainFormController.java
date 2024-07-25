@@ -218,17 +218,31 @@ public class MainFormController implements Initializable {
                     entity.setImage(path);
                     entity = dao.insertProduct(entity);
                     alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Error Message");
+                    alert.setTitle("Information Message");
                     alert.setHeaderText(null);
                     alert.setContentText("Successfully Added!");
                     alert.showAndWait();
                     inventoryProductsList();
+                    inventoryClearBtn();
                 }
 
             }catch (Exception ex) {
                 ex.printStackTrace();
             }
         }
+    }
+
+    public void inventoryClearBtn() {
+
+        iventory_ProductID.setText("");
+        iventory_ProductName.setText("");
+        iventory_type.getSelectionModel().clearSelection();
+        iventory_stock.setText("");
+        iventory_price.setText("");
+        iventory_status.getSelectionModel().clearSelection();
+        Data.setPath("");
+        inventory_ImageView.setImage(null);
+
     }
 
     //make a behavior for import btn
