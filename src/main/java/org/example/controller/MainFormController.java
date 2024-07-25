@@ -189,7 +189,45 @@ public class MainFormController implements Initializable {
     public void inventoryAddBtn() {
         if (iventory_ProductID.getText().isEmpty() || iventory_ProductName.getText().isEmpty() || iventory_type.getSelectionModel().getSelectedItem() == null
         || iventory_stock.getText().isEmpty() || iventory_price.getText().isEmpty() || iventory_status.getSelectionModel().getSelectedItem() == null || Data.getPath() == null) {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Message");
+            alert.setHeaderText(null);
+            alert.setContentText("Please fill all blank fields");
+            alert.showAndWait();
+        } else {
+            try {
+                String productID = iventory_ProductID.getText();
+                ProductDAO dao = new ProductDAO();
+                boolean loadProductID = dao.findProductID(productID);
+                if (loadProductID) {
+                    alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText(iventory_ProductID.getText() + " is already taken");
+                    alert.showAndWait();
+                }else {
+                    Product entity = new Product();
+                    entity.setProductID(iventory_ProductID.getText());
+                    entity.setProductName(iventory_ProductName.getText());
+                    entity.setType((String) iventory_type.getSelectionModel().getSelectedItem());
+                    entity.setStock(Integer.parseInt(iventory_stock.getText()));
+                    entity.setPrice(Double.valueOf(iventory_price.getText()));
+                    entity.setStatus((String) iventory_status.getSelectionModel().getSelectedItem());
+                    String path = Data.getPath();
+                    path = path.replace("\\","\\\\");
+                    entity.setImage(path);
+                    entity = dao.insertProduct(entity);
+                    alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Error Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Successfully Added!");
+                    alert.showAndWait();
+                    inventoryProductsList();
+                }
 
+            }catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
