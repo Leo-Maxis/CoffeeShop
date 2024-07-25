@@ -10,13 +10,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.example.dao.ProductDAO;
 import org.example.entity.Data;
 import org.example.entity.Product;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -110,23 +113,7 @@ public class MainFormController implements Initializable {
     private Label username_lbl;
 
     private Alert alert;
-
-    public void inventoryProductsList() {
-        try {
-            ProductDAO productDAO = new ProductDAO();
-            ObservableList<Product> productsList = productDAO.findAll();
-            inventory_col_idProduct.setCellValueFactory(new PropertyValueFactory<>("productID"));
-            inventory_col_productName.setCellValueFactory(new PropertyValueFactory<>("productName"));
-            inventory_col_type.setCellValueFactory(new PropertyValueFactory<>("type"));
-            inventory_col_stock.setCellValueFactory(new PropertyValueFactory<>("stock"));
-            inventory_col_Price.setCellValueFactory(new PropertyValueFactory<>("price"));
-            inventory_col_Status.setCellValueFactory(new PropertyValueFactory<>("status"));
-            inventory_col_Date.setCellValueFactory(new PropertyValueFactory<>("date"));
-            inventory_tableView.setItems(productsList);
-        }catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
+    private Image image;
 
     //combobox type
     private String [] typeList = {"Meals", "Drinks"};
@@ -150,6 +137,7 @@ public class MainFormController implements Initializable {
         iventory_status.setItems(listData);
     }
 
+    //log out return login form
     public void logOut() {
         try {
             alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -173,10 +161,48 @@ public class MainFormController implements Initializable {
         }
     }
 
+    //get username login to main form
     public void displayUsername() {
         String user = Data.getUsername();
         user = user.substring(0, 1).toUpperCase() + user.substring(1);
         username_lbl.setText(user);
+    }
+
+    //load data product from database to table view
+    public void inventoryProductsList() {
+        try {
+            ProductDAO productDAO = new ProductDAO();
+            ObservableList<Product> productsList = productDAO.findAll();
+            inventory_col_idProduct.setCellValueFactory(new PropertyValueFactory<>("productID"));
+            inventory_col_productName.setCellValueFactory(new PropertyValueFactory<>("productName"));
+            inventory_col_type.setCellValueFactory(new PropertyValueFactory<>("type"));
+            inventory_col_stock.setCellValueFactory(new PropertyValueFactory<>("stock"));
+            inventory_col_Price.setCellValueFactory(new PropertyValueFactory<>("price"));
+            inventory_col_Status.setCellValueFactory(new PropertyValueFactory<>("status"));
+            inventory_col_Date.setCellValueFactory(new PropertyValueFactory<>("date"));
+            inventory_tableView.setItems(productsList);
+        }catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void inventoryAddBtn() {
+        if (iventory_ProductID.getText().isEmpty() || iventory_ProductName.getText().isEmpty() || iventory_type.getSelectionModel().getSelectedItem() == null
+        || iventory_stock.getText().isEmpty() || iventory_price.getText().isEmpty() || iventory_status.getSelectionModel().getSelectedItem() == null || Data.getPath() == null) {
+
+        }
+    }
+
+    //make a behavior for import btn
+    public void inventoryImportBtn() {
+        FileChooser openFile = new FileChooser();
+        openFile.getExtensionFilters().add(new FileChooser.ExtensionFilter("Open Image File", "*png", "*jpg"));
+        File file = openFile.showOpenDialog(main_form.getScene().getWindow());
+        if (file != null) {
+            Data.setPath(file.getAbsolutePath());
+            image = new Image(file.toURI().toString(),120, 134, false, true);
+            inventory_ImageView.setImage(image);
+        }
     }
 
     @Override
