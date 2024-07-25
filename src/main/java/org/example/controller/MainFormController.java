@@ -9,9 +9,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.example.dao.ProductDAO;
 import org.example.entity.Data;
 import org.example.entity.Product;
 
@@ -42,25 +44,25 @@ public class MainFormController implements Initializable {
     private Button inventory_clearBtn;
 
     @FXML
-    private TableColumn<?, ?> inventory_col_Date;
+    private TableColumn<Product, String> inventory_col_Date;
 
     @FXML
-    private TableColumn<?, ?> inventory_col_Price;
+    private TableColumn<Product, String> inventory_col_Price;
 
     @FXML
-    private TableColumn<?, ?> inventory_col_Status;
+    private TableColumn<Product, String> inventory_col_Status;
 
     @FXML
-    private TableColumn<?, ?> inventory_col_idProduct;
+    private TableColumn<Product, String> inventory_col_idProduct;
 
     @FXML
-    private TableColumn<?, ?> inventory_col_productName;
+    private TableColumn<Product, String> inventory_col_productName;
 
     @FXML
-    private TableColumn<?, ?> inventory_col_stock;
+    private TableColumn<Product, String> inventory_col_stock;
 
     @FXML
-    private TableColumn<?, ?> inventory_col_type;
+    private TableColumn<Product, String> inventory_col_type;
 
     @FXML
     private Button inventory_deleteBtn;
@@ -72,7 +74,7 @@ public class MainFormController implements Initializable {
     private Button inventory_importBtn;
 
     @FXML
-    private TableView<?> inventory_tableView;
+    private TableView<Product> inventory_tableView;
 
     @FXML
     private Button inventory_updateBtn;
@@ -109,8 +111,21 @@ public class MainFormController implements Initializable {
 
     private Alert alert;
 
-    public ObservableList<Product> inventoryProductsList() {
-        ObservableList<Product> productsListData = FXCollections.observableArrayList();
+    public void inventoryProductsList() {
+        try {
+            ProductDAO productDAO = new ProductDAO();
+            ObservableList<Product> productsList = productDAO.findAll();
+            inventory_col_idProduct.setCellValueFactory(new PropertyValueFactory<>("productID"));
+            inventory_col_productName.setCellValueFactory(new PropertyValueFactory<>("productName"));
+            inventory_col_type.setCellValueFactory(new PropertyValueFactory<>("type"));
+            inventory_col_stock.setCellValueFactory(new PropertyValueFactory<>("stock"));
+            inventory_col_Price.setCellValueFactory(new PropertyValueFactory<>("price"));
+            inventory_col_Status.setCellValueFactory(new PropertyValueFactory<>("status"));
+            inventory_col_Date.setCellValueFactory(new PropertyValueFactory<>("date"));
+            inventory_tableView.setItems(productsList);
+        }catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     //combobox type
@@ -169,5 +184,6 @@ public class MainFormController implements Initializable {
         displayUsername();
         inventoryTypeList();
         inventoryStatusList();
+        inventoryProductsList();
     }
 }

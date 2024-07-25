@@ -19,16 +19,18 @@ public class ProductDAO {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while(resultSet.next()) {
                     Product product = new Product(resultSet.getInt("id"),
-                            resultSet.getString("prod_id"),
-                            resultSet.getString("product_name"),
+                            resultSet.getString("pro_id"),
+                            resultSet.getString("pro_name"),
                             resultSet.getString("type"),
                             resultSet.getInt("stock"),
                             resultSet.getDouble("price"),
                             resultSet.getString("status"),
                             resultSet.getString("image"),
                             resultSet.getDate("date"));
+                    productsList.add(product);
                 }
             }
         }
+        return productsList;
     }
 }
