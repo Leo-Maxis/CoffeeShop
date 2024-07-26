@@ -21,6 +21,7 @@ import org.example.entity.Product;
 
 import java.io.File;
 import java.net.URL;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -127,7 +128,7 @@ public class MainFormController implements Initializable {
     }
 
     //combobox status
-    private String[] statusList = {"Available", "unavailable"};
+    private String[] statusList = {"Available", "Unavailable"};
     public void inventoryStatusList() {
         List<String> statusL = new ArrayList<>();
         for (String data : statusList) {
@@ -241,20 +242,65 @@ public class MainFormController implements Initializable {
         iventory_ProductName.setText(product.getProductName());
         iventory_stock.setText(String.valueOf(product.getStock()));
         iventory_price.setText(String.valueOf(product.getPrice()));
-        String path = Data.setPath("File:" + product.getImage());
+        Data.setPath(product.getImage());
+        String path = "File:" + product.getImage();
         image = new Image(path, 120, 127, false, true);
+        Data.setDate(String.valueOf(product.getDate()));
+        Data.setId(product.getId());
         inventory_ImageView.setImage(image);
     }
 
     //update product button
     public void inventoryUpdateBtn() {
         if (iventory_ProductID.getText().isEmpty() || iventory_ProductName.getText().isEmpty() || iventory_type.getSelectionModel().getSelectedItem() == null
-                || iventory_stock.getText().isEmpty() || iventory_price.getText().isEmpty() || iventory_status.getSelectionModel().getSelectedItem() == null || Data.getPath() == null) {
+                || iventory_stock.getText().isEmpty() || iventory_price.getText().isEmpty() || iventory_status.getSelectionModel().getSelectedItem() == null || Data.getPath() == null
+        || Data.getId() == 0) {
             alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Message");
             alert.setHeaderText(null);
             alert.setContentText("Please fill all blank fields");
             alert.showAndWait();
+        } else {
+            alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Error Message");
+            alert.setHeaderText(null);
+            alert.setContentText("Are you sure you want to UPDATE PRoduct ID: " + iventory_ProductID.getText() + "?");
+            Optional<ButtonType> option = alert.showAndWait();
+            if (option.get().equals(ButtonType.OK)) {
+                try {
+                    Product product = new Product();
+                    product.setProductID(iventory_ProductID.getText());
+                    product.setProductName(iventory_ProductName.getText());
+                    product.setType((String) iventory_type.getSelectionModel().getSelectedItem());
+                    product.setStock(Integer.parseInt(iventory_stock.getText()));
+                    product.setPrice(Double.valueOf(iventory_price.getText()));
+                    product.setStatus((String) iventory_status.getSelectionModel().getSelectedItem());
+                    String path = Data.getPath();
+                    path = path.replace("\\","\\\\");
+                    product.setImage(path);
+                    product.setDate(Date.valueOf(Data.getDate()));
+                    product.setId(Data.getId());
+                    ProductDAO dao = new ProductDAO();
+                    var result = dao.updateProduct(product);
+                    if (result) {
+                        alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Information Message");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Successfully updated!");
+                        alert.showAndWait();
+                        inventoryProductsList();
+                        inventoryClearBtn();
+                    }
+                }catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            } else {
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Cancelled.");
+                alert.showAndWait();
+            }
         }
     }
 
