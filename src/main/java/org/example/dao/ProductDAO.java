@@ -71,4 +71,23 @@ public class ProductDAO {
             return entity;
         }
     }
+
+    public boolean updateProduct(Product entity) throws SQLException, ClassNotFoundException {
+        String sql = "update product set pro_id =?, pro_name =?, type =?, stock =?, price =?, status =?, image =?, date =? where id =?";
+        try (Connection connection = DBHelper.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, entity.getProductID());
+            preparedStatement.setString(2, entity.getProductName());
+            preparedStatement.setString(3, entity.getType());
+            preparedStatement.setInt(4, entity.getStock());
+            preparedStatement.setDouble(5, entity.getPrice());
+            preparedStatement.setString(6, entity.getStatus());
+            preparedStatement.setString(7, entity.getImage());
+            Date date = new Date();
+            java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+            preparedStatement.setString(8, String.valueOf(sqlDate));
+            preparedStatement.setInt(9, entity.getId());
+            return preparedStatement.executeUpdate() > 0;
+        }
+    }
 }

@@ -246,6 +246,18 @@ public class MainFormController implements Initializable {
         inventory_ImageView.setImage(image);
     }
 
+    //update product button
+    public void inventoryUpdateBtn() {
+        if (iventory_ProductID.getText().isEmpty() || iventory_ProductName.getText().isEmpty() || iventory_type.getSelectionModel().getSelectedItem() == null
+                || iventory_stock.getText().isEmpty() || iventory_price.getText().isEmpty() || iventory_status.getSelectionModel().getSelectedItem() == null || Data.getPath() == null) {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Message");
+            alert.setHeaderText(null);
+            alert.setContentText("Please fill all blank fields");
+            alert.showAndWait();
+        }
+    }
+
     public void inventoryClearBtn() {
 
         iventory_ProductID.setText("");
