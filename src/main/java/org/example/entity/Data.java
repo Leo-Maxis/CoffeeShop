@@ -16,7 +16,8 @@ public class Data {
         return path;
     }
 
-    public static void setPath(String path) {
+    public static String setPath(String path) {
         Data.path = path;
+        return path;
     }
 }

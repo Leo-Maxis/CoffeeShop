@@ -232,6 +232,20 @@ public class MainFormController implements Initializable {
         }
     }
 
+    //select data from table view
+    public void inventorySelectData() {
+        Product product = inventory_tableView.getSelectionModel().getSelectedItem();
+        int num = inventory_tableView.getSelectionModel().getSelectedIndex();
+        if ((num - 1) < -1) return;
+        iventory_ProductID.setText(product.getProductID());
+        iventory_ProductName.setText(product.getProductName());
+        iventory_stock.setText(String.valueOf(product.getStock()));
+        iventory_price.setText(String.valueOf(product.getPrice()));
+        String path = Data.setPath("File:" + product.getImage());
+        image = new Image(path, 120, 127, false, true);
+        inventory_ImageView.setImage(image);
+    }
+
     public void inventoryClearBtn() {
 
         iventory_ProductID.setText("");

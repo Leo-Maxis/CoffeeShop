@@ -209,7 +209,7 @@
                                     <String fx:value="shadow" />
                                  </styleClass>
                                  <children>
-                                    <TableView fx:id="inventory_tableView" layoutX="14.0" layoutY="14.0" prefHeight="294.0" prefWidth="823.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+                                    <TableView fx:id="inventory_tableView" layoutX="14.0" layoutY="14.0" onMouseClicked="#inventorySelectData" prefHeight="294.0" prefWidth="823.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
                                       <columns>
                                         <TableColumn fx:id="inventory_col_idProduct" prefWidth="75.0" text="Product ID" />
                                         <TableColumn fx:id="inventory_col_productName" prefWidth="144.0" text="Product Name" />
