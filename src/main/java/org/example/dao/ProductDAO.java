@@ -90,4 +90,12 @@ public class ProductDAO {
             return preparedStatement.executeUpdate() > 0;
         }
     }
+    public boolean deleteProduct(int id) throws SQLException, ClassNotFoundException {
+        String sql = "delete from product where id =?";
+        try (Connection connection = DBHelper.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, id);
+            return preparedStatement.executeUpdate() > 0;
+        }
+    }
 }

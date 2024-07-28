@@ -304,6 +304,48 @@ public class MainFormController implements Initializable {
         }
     }
 
+    public void inventoryDeleteBtn() {
+        if (Data.getId() == 0) {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Message");
+            alert.setHeaderText(null);
+            alert.setContentText("Please fill all blank fields");
+            alert.showAndWait();
+        } else {
+            alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Error Message");
+            alert.setHeaderText(null);
+            alert.setContentText("Are you sure you want to DELETE PRoduct ID: " + iventory_ProductID.getText() + "?");
+            Optional<ButtonType> option = alert.showAndWait();
+            if (option.get().equals(ButtonType.OK)) {
+                try {
+                    Product product = new Product();
+                    product.setId(Data.getId());
+                    int id = Data.getId();
+                    ProductDAO dao = new ProductDAO();
+                    var result = dao.deleteProduct(id);
+                    if (result) {
+                        alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Error Message");
+                        alert.setHeaderText(null);
+                        alert.setContentText("successfully Deleted!");
+                        alert.showAndWait();
+                        inventoryProductsList();
+                        inventoryClearBtn();
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            } else {
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error Message");
+                alert.setHeaderText(null);
+                alert.setContentText("Cancelled.");
+                alert.showAndWait();
+            }
+        }
+    }
+
     public void inventoryClearBtn() {
 
         iventory_ProductID.setText("");
