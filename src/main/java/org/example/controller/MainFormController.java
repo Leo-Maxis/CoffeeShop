@@ -157,6 +157,7 @@ public class MainFormController implements Initializable {
     private Alert alert;
     private Image image;
 
+
     //combobox type
     private String [] typeList = {"Meals", "Drinks"};
     public void inventoryTypeList() {
