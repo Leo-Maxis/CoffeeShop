@@ -414,6 +414,11 @@ public class MainFormController implements Initializable {
         }
     }
 
+    //load menu products
+    public ObservableList<Product> menuGetData() {
+        return cardListData;
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         displayUsername();
