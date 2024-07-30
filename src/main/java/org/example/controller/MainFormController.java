@@ -13,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.example.dao.ProductDAO;
@@ -108,10 +109,50 @@ public class MainFormController implements Initializable {
     private AnchorPane main_form;
 
     @FXML
+    private TextField menu_amount;
+
+    @FXML
     private Button menu_btn;
 
     @FXML
+    private Label menu_change;
+
+    @FXML
+    private TableColumn<?, ?> menu_col_ProductName;
+
+    @FXML
+    private TableColumn<?, ?> menu_col_price;
+
+    @FXML
+    private TableColumn<?, ?> menu_col_quantity;
+
+    @FXML
+    private AnchorPane menu_form;
+
+    @FXML
+    private GridPane menu_gridPane;
+
+    @FXML
+    private Button menu_payBtn;
+
+    @FXML
+    private Button menu_receiptBtn;
+
+    @FXML
+    private Button menu_removeBtn;
+
+    @FXML
+    private ScrollPane menu_scrollPane;
+
+    @FXML
+    private TableView<?> menu_tableView;
+
+    @FXML
+    private Label menu_total;
+
+    @FXML
     private Label username_lbl;
+
 
     private Alert alert;
     private Image image;
