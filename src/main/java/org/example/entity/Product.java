@@ -29,12 +29,23 @@ public class Product {
         this.date = date;
     }
 
-    public Product(int id, String productID, String productName, Double price, String image) {
+//    public Product(int id, String productID, String productName, Double price, String image) {
+//        this.id = id;
+//        this.productID = productID;
+//        this.productName = productName;
+//        this.price = price;
+//        this.image = image;
+//    }
+
+    public Product(int id, String productName, String productID, String type, int stock, Double price, String image, Date date) {
         this.id = id;
-        this.productID = productID;
         this.productName = productName;
+        this.productID = productID;
+        this.type = type;
+        this.stock = stock;
         this.price = price;
         this.image = image;
+        this.date = date;
     }
 
     public int getId() {

@@ -35,6 +35,28 @@ public class ProductDAO {
         return productsList;
     }
 
+    public ObservableList<Product> getProductCard() throws SQLException, ClassNotFoundException {
+        ObservableList<Product> productsList = FXCollections.observableArrayList();
+        String sql = "select * from product";
+        try (Connection connection = DBHelper.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while(resultSet.next()) {
+                    Product product = new Product(resultSet.getInt("id"),
+                            resultSet.getString("pro_id"),
+                            resultSet.getString("pro_name"),
+                            resultSet.getString("type"),
+                            resultSet.getInt("stock"),
+                            resultSet.getDouble("price"),
+                            resultSet.getString("image"),
+                            resultSet.getDate("date"));
+                    productsList.add(product);
+                }
+            }
+        }
+        return productsList;
+    }
+
     public boolean findProductID(String productID) throws SQLException, ClassNotFoundException {
         String sql = "Select pro_id from product where pro_id =?";
         try (Connection connection = DBHelper.getConnection();

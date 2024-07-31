@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -157,7 +158,7 @@ public class MainFormController implements Initializable {
     private Alert alert;
     private Image image;
 
-    private ObservableList<Product> cardListData;
+    private ObservableList<Product> cardListData = FXCollections.observableArrayList();
 
     //combobox type
     private String [] typeList = {"Meals", "Drinks"};
@@ -226,6 +227,40 @@ public class MainFormController implements Initializable {
             inventory_col_Date.setCellValueFactory(new PropertyValueFactory<>("date"));
             inventory_tableView.setItems(productsList);
         }catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    //load product card into menu
+    public void menuDisplayCard() {
+        try {
+            ProductDAO productDAO = new ProductDAO();
+            ObservableList<Product> productsList = productDAO.getProductCard();
+            cardListData.clear();
+            cardListData.addAll(productsList);
+            int row = 0;
+            int column =0;
+            menu_gridPane.getChildren().clear();
+            menu_gridPane.getRowConstraints().clear();
+            menu_gridPane.getColumnConstraints().clear();
+            for (int i = 0; i < cardListData.size(); i++) {
+                try {
+                    FXMLLoader loader = new FXMLLoader();
+                    loader.setLocation(getClass().getResource("/org/example/coffeeshop/layout/cardProductLayout.fxml"));
+                    AnchorPane pane = loader.load();
+                    CardProductController cardProductController = loader.getController();
+                    cardProductController.setData(cardListData.get(i));
+                    if (column == 3) {
+                        column = 0;
+                        row +=1;
+                    }
+                    menu_gridPane.add(pane, column++, row);
+                    GridPane.setMargin(pane, new Insets(10));
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
@@ -414,16 +449,12 @@ public class MainFormController implements Initializable {
         }
     }
 
-    //load menu products
-    public ObservableList<Product> menuGetData() {
-        return cardListData;
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         displayUsername();
         inventoryTypeList();
         inventoryStatusList();
         inventoryProductsList();
+        menuDisplayCard();
     }
 }
