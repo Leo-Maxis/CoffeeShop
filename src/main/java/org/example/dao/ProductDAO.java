@@ -134,4 +134,34 @@ public class ProductDAO {
         }
         return "";
     }
+
+    public int checkStockProduct(String prodID) throws SQLException, ClassNotFoundException {
+        String sql = "select stock form product where pro_id =?";
+        try (Connection connection = DBHelper.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, prodID);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getInt("stock");
+                }
+            }
+            return 0;
+        }
+    }
+
+    public boolean updateStockProduct(Product entity) throws SQLException, ClassNotFoundException {
+        String sql = "update product set pro_name =?, type =?, stock = 0, price =?, status = 'Unvailable', image =?, date =? where pro_id =?";
+        try (Connection connection = DBHelper.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, entity.getProductName());
+            preparedStatement.setString(2, entity.getType());
+            preparedStatement.setDouble(3, entity.getPrice());
+            preparedStatement.setString(4, entity.getImage());
+            Date date = new Date();
+            java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+            preparedStatement.setString(5, String.valueOf(sqlDate));
+            preparedStatement.setString(6, entity.getProductID());
+            return preparedStatement.executeUpdate() > 0;
+        }
+    }
 }
