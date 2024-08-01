@@ -3,6 +3,7 @@ package org.example.controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -154,6 +155,9 @@ public class MainFormController implements Initializable {
     @FXML
     private Label username_lbl;
 
+    @FXML
+    private AnchorPane dashboard_form;
+
 
     private Alert alert;
     private Image image;
@@ -262,6 +266,26 @@ public class MainFormController implements Initializable {
             }
         } catch (Exception ex) {
             ex.printStackTrace();
+        }
+    }
+
+    public void switchForm(ActionEvent event) {
+        if (event.getSource() == dashboard_btn) {
+            dashboard_form.setVisible(true);
+            inventory_form.setVisible(false);
+            menu_form.setVisible(false);
+        }else if (event.getSource() == inventory_btn) {
+            dashboard_form.setVisible(false);
+            inventory_form.setVisible(true);
+            menu_form.setVisible(false);
+            inventoryTypeList();
+            inventoryStatusList();
+            inventoryProductsList();
+        }else if (event.getSource() == menu_btn) {
+            dashboard_form.setVisible(false);
+            inventory_form.setVisible(false);
+            menu_form.setVisible(true);
+            menuDisplayCard();
         }
     }
 
