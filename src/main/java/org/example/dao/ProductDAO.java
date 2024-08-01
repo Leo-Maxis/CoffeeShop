@@ -120,4 +120,18 @@ public class ProductDAO {
             return preparedStatement.executeUpdate() > 0;
         }
     }
+
+    public String checkAvailableProduct(String prodID) throws SQLException, ClassNotFoundException {
+        String sql = "Select status from product where pro_id =?";
+        try (Connection connection = DBHelper.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, prodID);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getString("status");
+                }
+            }
+        }
+        return "";
+    }
 }

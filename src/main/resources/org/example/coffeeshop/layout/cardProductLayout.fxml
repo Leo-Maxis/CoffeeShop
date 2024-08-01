@@ -27,7 +27,7 @@
                      <padding>
                         <Insets left="15.0" />
                      </padding></Label>
-                  <Label fx:id="prod_price" prefHeight="21.0" prefWidth="87.0" text="\$0.0">
+                  <Label fx:id="prod_price" alignment="CENTER" prefHeight="21.0" prefWidth="87.0" text="\$0.0">
                      <HBox.margin>
                         <Insets right="5.0" />
                      </HBox.margin>
