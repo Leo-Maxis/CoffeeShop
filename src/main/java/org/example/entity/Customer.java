@@ -4,24 +4,26 @@ import java.sql.Date;
 
 public class Customer {
     private int id;
-    private String productID;
+    private String customerID;
     private String productName;
     private String type;
     private int quantity;
     private Double price;
     private Date date;
+    private String em_username;
 
     public Customer() {
     }
 
-    public Customer(int id, String productID, String productName, String type, int quantity, Double price, Date date) {
+    public Customer(int id, String customerID, String productName, String type, int quantity, Double price, Date date,  String em_username) {
         this.id = id;
-        this.productID = productID;
+        this.customerID = customerID;
         this.productName = productName;
         this.type = type;
         this.quantity = quantity;
         this.price = price;
         this.date = date;
+        this.em_username = em_username;
     }
 
     public int getId() {
@@ -32,12 +34,12 @@ public class Customer {
         this.id = id;
     }
 
-    public String getProductID() {
-        return productID;
+    public String getCustomerID() {
+        return customerID;
     }
 
-    public void setProductID(String productID) {
-        this.productID = productID;
+    public void setCustomerID(String customerID) {
+        this.customerID = customerID;
     }
 
     public String getProductName() {
@@ -78,5 +80,13 @@ public class Customer {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getEm_username() {
+        return em_username;
+    }
+
+    public void setEm_username(String em_username) {
+        this.em_username = em_username;
     }
 }
