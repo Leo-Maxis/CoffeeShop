@@ -93,6 +93,12 @@ public class CardProductController implements Initializable {
                 alert.showAndWait();
             } else {
                 if (checkStock < qty) {
+                    alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Invalid. This product is Out of Stock!!");
+                    alert.showAndWait();
+                } else {
 
                 }
             }
