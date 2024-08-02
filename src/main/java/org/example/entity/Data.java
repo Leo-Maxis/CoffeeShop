@@ -5,6 +5,7 @@ public class Data {
     private static String path;
     private static String date;
     private static int id;
+    private static int cID;
 
     public static String getUsername() {
         return username;
@@ -37,5 +38,13 @@ public class Data {
 
     public static void setId(int id) {
         Data.id = id;
+    }
+
+    public static int getcID() {
+        return cID;
+    }
+
+    public static void setcID(int cID) {
+        Data.cID = cID;
     }
 }

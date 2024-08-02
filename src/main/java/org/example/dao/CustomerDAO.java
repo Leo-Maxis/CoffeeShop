@@ -27,4 +27,28 @@ public class CustomerDAO {
             return entity;
         }
     }
+
+    public int maxCustomerID() throws SQLException, ClassNotFoundException {
+        String sql = "select MAX(customer_id) from customer";
+        try (Connection connection = DBHelper.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("MAX(customer_id)");
+            }
+            return 0;
+        }
+    }
+
+    public int checkCustomerID() throws SQLException, ClassNotFoundException {
+        String sql = "select MAX(customer_id) from receipt";
+        try (Connection connection = DBHelper.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("MAX(customer_id)");
+            }
+            return 0;
+        }
+    }
 }

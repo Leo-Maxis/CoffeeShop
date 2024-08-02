@@ -18,6 +18,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.example.dao.CustomerDAO;
 import org.example.dao.ProductDAO;
 import org.example.entity.Data;
 import org.example.entity.Product;
@@ -265,6 +266,25 @@ public class MainFormController implements Initializable {
                 }
             }
         } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private int cID;
+    public void customerID() {
+        try {
+            CustomerDAO customerDAO = new CustomerDAO();
+            cID = customerDAO.maxCustomerID();
+            int checkID = 0;
+            checkID = customerDAO.checkCustomerID();
+            if (cID == 0) {
+                cID +=1;
+            }else if (cID == checkID) {
+                cID +=1;
+            }
+            Data.setcID(cID);
+
+        }catch (Exception ex) {
             ex.printStackTrace();
         }
     }
