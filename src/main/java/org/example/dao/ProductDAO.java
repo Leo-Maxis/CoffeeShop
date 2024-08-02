@@ -136,7 +136,7 @@ public class ProductDAO {
     }
 
     public int checkStockProduct(String prodID) throws SQLException, ClassNotFoundException {
-        String sql = "select stock form product where pro_id =?";
+        String sql = "select stock from product where pro_id =?";
         try (Connection connection = DBHelper.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, prodID);
@@ -161,6 +161,24 @@ public class ProductDAO {
             java.sql.Date sqlDate = new java.sql.Date(date.getTime());
             preparedStatement.setString(5, String.valueOf(sqlDate));
             preparedStatement.setString(6, entity.getProductID());
+            return preparedStatement.executeUpdate() > 0;
+        }
+    }
+
+    public boolean updateStockProductPlus(Product entity) throws SQLException, ClassNotFoundException {
+        String sql = "update product set pro_name =?, type =?, stock = ?, price =?, status = ?, image =?, date =? where pro_id =?";
+        try (Connection connection = DBHelper.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, entity.getProductName());
+            preparedStatement.setString(2, entity.getType());
+            preparedStatement.setInt(3, entity.getStock());
+            preparedStatement.setDouble(4, entity.getPrice());
+            preparedStatement.setString(5, entity.getStatus());
+            preparedStatement.setString(6, entity.getImage());
+            Date date = new Date();
+            java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+            preparedStatement.setString(7, String.valueOf(sqlDate));
+            preparedStatement.setString(8, entity.getProductID());
             return preparedStatement.executeUpdate() > 0;
         }
     }

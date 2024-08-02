@@ -75,17 +75,17 @@ public class CardProductController implements Initializable {
         qty = prod_spinner.getValue();
         try {
             ProductDAO productDAO = new ProductDAO();
-            int checkStock =0;
+            int checkStock = 0;
             checkStock = productDAO.checkStockProduct(prodID);
             if (checkStock == 0) {
-                Product entity = new Product();
-                entity.setProductName(prod_name.getText());
-                entity.setType(type);
-                entity.setPrice(price);
-                entity.setImage(prod_image);
-                entity.setDate(Date.valueOf(prod_date));
-                entity.setProductID(prodID);
-                productDAO.updateStockProduct(entity);
+                Product productEntity = new Product();
+                productEntity.setProductName(prod_name.getText());
+                productEntity.setType(type);
+                productEntity.setPrice(price);
+                productEntity.setImage(prod_image);
+                productEntity.setDate(Date.valueOf(prod_date));
+                productEntity.setProductID(prodID);
+                productDAO.updateStockProduct(productEntity);
             }
             String checkAvailable = "";
             checkAvailable = productDAO.checkAvailableProduct(prodID);
@@ -103,16 +103,30 @@ public class CardProductController implements Initializable {
                     alert.setContentText("Invalid. This product is Out of Stock!!");
                     alert.showAndWait();
                 } else {
-                    Customer entity = new Customer();
-                    entity.setCustomerID(String.valueOf(Data.getcID()));
-                    entity.setProductName(prod_name.getText());
-                    entity.setType(type);
-                    entity.setQuantity(qty);
+                    prod_image = prod_image.replace("\\", "\\\\");
+                    Customer customerEntity = new Customer();
+                    customerEntity.setCustomerID(String.valueOf(Data.getcID()));
+                    customerEntity.setProductName(prod_name.getText());
+                    customerEntity.setType(type);
+                    customerEntity.setQuantity(qty);
                     totalP = (qty * price);
-                    entity.setPrice(totalP);
-                    entity.setEm_username(Data.getUsername());
+                    customerEntity.setPrice(totalP);
+                    customerEntity.setEm_username(Data.getUsername());
                     CustomerDAO customerDAO = new CustomerDAO();
-                    entity = customerDAO.insertCustomer(entity);
+                    customerEntity = customerDAO.insertCustomer(customerEntity);
+                    int upStock = checkStock - qty;
+                    System.out.println("Date: " + prod_date);
+                    System.out.println("Image: " + prod_image);
+                    Product productEntity = new Product();
+                    productEntity.setProductName(prod_name.getText());
+                    productEntity.setType(type);
+                    productEntity.setStock(upStock);
+                    productEntity.setPrice(price);
+                    productEntity.setStatus(checkAvailable);
+                    productEntity.setImage(prod_image);
+                    productEntity.setDate(Date.valueOf(prod_date));
+                    productEntity.setProductID(prodID);
+                    productDAO.updateStockProductPlus(productEntity);
                     alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Information Message");
                     alert.setHeaderText(null);
