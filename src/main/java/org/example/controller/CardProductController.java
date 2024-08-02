@@ -6,7 +6,10 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import org.example.dao.CustomerDAO;
 import org.example.dao.ProductDAO;
+import org.example.entity.Customer;
+import org.example.entity.Data;
 import org.example.entity.Product;
 
 import java.net.URL;
@@ -45,6 +48,7 @@ public class CardProductController implements Initializable {
     private Alert alert;
 
     private SpinnerValueFactory<Integer> spin;
+    private double totalP;
 
     public void setData(Product prodData) {
         this.prodData = prodData;
@@ -99,7 +103,21 @@ public class CardProductController implements Initializable {
                     alert.setContentText("Invalid. This product is Out of Stock!!");
                     alert.showAndWait();
                 } else {
-
+                    Customer entity = new Customer();
+                    entity.setCustomerID(String.valueOf(Data.getcID()));
+                    entity.setProductName(prod_name.getText());
+                    entity.setType(type);
+                    entity.setQuantity(qty);
+                    totalP = (qty * price);
+                    entity.setPrice(totalP);
+                    entity.setEm_username(Data.getUsername());
+                    CustomerDAO customerDAO = new CustomerDAO();
+                    entity = customerDAO.insertCustomer(entity);
+                    alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Information Message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Successfully Added!");
+                    alert.showAndWait();
                 }
             }
         } catch (Exception ex) {
@@ -109,6 +127,6 @@ public class CardProductController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        setQuantity();
     }
 }

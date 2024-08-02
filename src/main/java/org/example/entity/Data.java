@@ -4,8 +4,8 @@ public class Data {
     private static String username;
     private static String path;
     private static String date;
-    private static int id;
-    private static int cID;
+    private static Integer id;
+    private static Integer cID;
 
     public static String getUsername() {
         return username;
@@ -36,7 +36,7 @@ public class Data {
         return id;
     }
 
-    public static void setId(int id) {
+    public static void setId(Integer id) {
         Data.id = id;
     }
 
@@ -44,7 +44,7 @@ public class Data {
         return cID;
     }
 
-    public static void setcID(int cID) {
+    public static void setcID(Integer cID) {
         Data.cID = cID;
     }
 }
