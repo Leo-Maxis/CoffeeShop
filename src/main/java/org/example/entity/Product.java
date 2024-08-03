@@ -37,7 +37,7 @@ public class Product {
 //        this.image = image;
 //    }
 
-    public Product(int id, String productName, String productID, String type, int stock, Double price, String image, Date date) {
+    public Product(int id, String productID, String productName, String type, int stock, Double price, String image, Date date) {
         this.id = id;
         this.productName = productName;
         this.productID = productID;

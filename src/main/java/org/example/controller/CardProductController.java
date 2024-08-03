@@ -53,8 +53,8 @@ public class CardProductController implements Initializable {
     public void setData(Product prodData) {
         this.prodData = prodData;
 
-        prod_name.setText(prodData.getProductName());
         prodID = prodData.getProductID();
+        prod_name.setText(prodData.getProductName());
         type = prodData.getType();
         prod_price.setText("$" + String.valueOf(prodData.getPrice()));
         String path = "File:" + prodData.getImage();
@@ -72,6 +72,9 @@ public class CardProductController implements Initializable {
     }
 
     public void addBtn() {
+        MainFormController mainFormController = new MainFormController();
+        mainFormController.customerID();
+
         qty = prod_spinner.getValue();
         try {
             ProductDAO productDAO = new ProductDAO();

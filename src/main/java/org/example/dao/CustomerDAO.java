@@ -20,6 +20,7 @@ public class CustomerDAO {
             java.sql.Date sqlDate = new java.sql.Date(date.getTime());
             preparedStatement.setString(6, String.valueOf(sqlDate));
             preparedStatement.setString(7, entity.getEm_username());
+            preparedStatement.executeUpdate();
             ResultSet resultSet =  preparedStatement.getGeneratedKeys();
             if (resultSet.next()) {
                 entity.setId(resultSet.getInt(1));
@@ -34,7 +35,7 @@ public class CustomerDAO {
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                return resultSet.getInt("MAX(customer_id)");
+                return resultSet.getInt(1);
             }
             return 0;
         }
@@ -46,7 +47,7 @@ public class CustomerDAO {
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                return resultSet.getInt("MAX(customer_id)");
+                return resultSet.getInt(1);
             }
             return 0;
         }
