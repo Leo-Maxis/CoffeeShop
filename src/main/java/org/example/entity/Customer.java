@@ -11,12 +11,13 @@ public class Customer {
     private int quantity;
     private Double price;
     private Date date;
+    private String image;
     private String em_username;
 
     public Customer() {
     }
 
-    public Customer(int id, String customerID, String productID, String productName, String type, int quantity, Double price, Date date,  String em_username) {
+    public Customer(int id, String customerID, String productID, String productName, String type, int quantity, Double price, Date date, String image,  String em_username) {
         this.id = id;
         this.customerID = customerID;
         this.productID = productID;
@@ -25,6 +26,7 @@ public class Customer {
         this.quantity = quantity;
         this.price = price;
         this.date = date;
+        this.image = image;
         this.em_username = em_username;
     }
 
@@ -82,6 +84,14 @@ public class Customer {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getEm_username() {

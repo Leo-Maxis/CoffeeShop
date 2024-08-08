@@ -122,13 +122,13 @@ public class MainFormController implements Initializable {
     private Label menu_change;
 
     @FXML
-    private TableColumn<?, ?> menu_col_ProductName;
+    private TableColumn<Product, String> menu_col_ProductName;
 
     @FXML
-    private TableColumn<?, ?> menu_col_price;
+    private TableColumn<Product, String> menu_col_price;
 
     @FXML
-    private TableColumn<?, ?> menu_col_quantity;
+    private TableColumn<Product, String> menu_col_quantity;
 
     @FXML
     private AnchorPane menu_form;
@@ -149,7 +149,7 @@ public class MainFormController implements Initializable {
     private ScrollPane menu_scrollPane;
 
     @FXML
-    private TableView<?> menu_tableView;
+    private TableView<Product> menu_tableView;
 
     @FXML
     private Label menu_total;
@@ -494,10 +494,15 @@ public class MainFormController implements Initializable {
         }
     }
 
+    //menuShowData
     public void displayMenuOrder() {
         try {
             MenuDAO menuDAO = new MenuDAO();
             ObservableList<Product> listMenu = menuDAO.getMenuOrder();
+            menu_col_ProductName.setCellValueFactory(new PropertyValueFactory<>("productName"));
+            menu_col_quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+            menu_col_price.setCellValueFactory(new PropertyValueFactory<>("price"));
+            menu_tableView.setItems(cardListData);
         } catch (Exception ex) {
             ex.printStackTrace();
         }

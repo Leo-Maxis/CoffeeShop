@@ -115,6 +115,7 @@ public class CardProductController implements Initializable {
                     customerEntity.setQuantity(qty);
                     totalP = (qty * price);
                     customerEntity.setPrice(totalP);
+                    customerEntity.setImage(prod_image);
                     customerEntity.setEm_username(Data.getUsername());
                     CustomerDAO customerDAO = new CustomerDAO();
                     customerEntity = customerDAO.insertCustomer(customerEntity);

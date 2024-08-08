@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class CustomerDAO {
     public Customer insertCustomer(Customer entity) throws SQLException, ClassNotFoundException {
-        String sql = "Insert into customer (customer_id, prod_id, prod_name, type, quantity, price, date, em_username) values (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "Insert into customer (customer_id, prod_id, prod_name, type, quantity, price, date, image, em_username) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = DBHelper.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, entity.getCustomerID());
@@ -20,7 +20,8 @@ public class CustomerDAO {
             Date date = new Date();
             java.sql.Date sqlDate = new java.sql.Date(date.getTime());
             preparedStatement.setString(7, String.valueOf(sqlDate));
-            preparedStatement.setString(8, entity.getEm_username());
+            preparedStatement.setString(8, entity.getImage());
+            preparedStatement.setString(9, entity.getEm_username());
             preparedStatement.executeUpdate();
             ResultSet resultSet =  preparedStatement.getGeneratedKeys();
             if (resultSet.next()) {
