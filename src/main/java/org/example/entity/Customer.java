@@ -5,6 +5,7 @@ import java.sql.Date;
 public class Customer {
     private int id;
     private String customerID;
+    private String productID;
     private String productName;
     private String type;
     private int quantity;
@@ -15,9 +16,10 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(int id, String customerID, String productName, String type, int quantity, Double price, Date date,  String em_username) {
+    public Customer(int id, String customerID, String productID, String productName, String type, int quantity, Double price, Date date,  String em_username) {
         this.id = id;
         this.customerID = customerID;
+        this.productID = productID;
         this.productName = productName;
         this.type = type;
         this.quantity = quantity;
@@ -88,5 +90,13 @@ public class Customer {
 
     public void setEm_username(String em_username) {
         this.em_username = em_username;
+    }
+
+    public String getProductID() {
+        return productID;
+    }
+
+    public void setProductID(String productID) {
+        this.productID = productID;
     }
 }

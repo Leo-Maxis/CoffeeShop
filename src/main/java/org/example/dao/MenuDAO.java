@@ -22,10 +22,15 @@ public class MenuDAO {
                             resultSet.getString("pro_id"),
                             resultSet.getString("pro_name"),
                             resultSet.getString("type"),
-                            resultSet.);
+                            resultSet.getInt("quantity"),
+                            resultSet.getDouble("price"),
+                            resultSet.getString("image"),
+                            resultSet.getDate("date"));
+                    listData.add(product);
                 }
             }
         }
+        return listData;
     }
 
 }
