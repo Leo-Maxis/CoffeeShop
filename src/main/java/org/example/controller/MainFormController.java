@@ -19,6 +19,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.example.dao.CustomerDAO;
+import org.example.dao.MenuDAO;
 import org.example.dao.ProductDAO;
 import org.example.entity.Data;
 import org.example.entity.Product;
@@ -490,6 +491,15 @@ public class MainFormController implements Initializable {
             Data.setPath(file.getAbsolutePath());
             image = new Image(file.toURI().toString(),120, 134, false, true);
             inventory_ImageView.setImage(image);
+        }
+    }
+
+    public void displayMenuOrder() {
+        try {
+            MenuDAO menuDAO = new MenuDAO();
+            ObservableList<Product> listMenu = menuDAO.getMenuOrder();
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 

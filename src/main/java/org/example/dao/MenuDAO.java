@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class MenuDAO {
-    public ObservableList<Product>  menuOder() throws SQLException, ClassNotFoundException {
+    public ObservableList<Product> getMenuOrder() throws SQLException, ClassNotFoundException {
         ObservableList<Product> listData = FXCollections.observableArrayList();
         String sql = "select * from customer";
         try (Connection connection = DBHelper.getConnection();
