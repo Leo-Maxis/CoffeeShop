@@ -8,18 +8,19 @@ import java.util.Date;
 
 public class CustomerDAO {
     public Customer insertCustomer(Customer entity) throws SQLException, ClassNotFoundException {
-        String sql = "Insert into customer (customer_id, prod_name, type, quantity, price, date, em_username) values (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "Insert into customer (customer_id, prod_id, prod_name, type, quantity, price, date, em_username) values (?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = DBHelper.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, entity.getCustomerID());
-            preparedStatement.setString(2, entity.getProductName());
-            preparedStatement.setString(3, entity.getType());
-            preparedStatement.setInt(4, entity.getQuantity());
-            preparedStatement.setDouble(5, entity.getPrice());
+            preparedStatement.setString(2, entity.getProductID());
+            preparedStatement.setString(3, entity.getProductName());
+            preparedStatement.setString(4, entity.getType());
+            preparedStatement.setInt(5, entity.getQuantity());
+            preparedStatement.setDouble(6, entity.getPrice());
             Date date = new Date();
             java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-            preparedStatement.setString(6, String.valueOf(sqlDate));
-            preparedStatement.setString(7, entity.getEm_username());
+            preparedStatement.setString(7, String.valueOf(sqlDate));
+            preparedStatement.setString(8, entity.getEm_username());
             preparedStatement.executeUpdate();
             ResultSet resultSet =  preparedStatement.getGeneratedKeys();
             if (resultSet.next()) {

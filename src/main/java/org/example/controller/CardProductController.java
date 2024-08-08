@@ -109,6 +109,7 @@ public class CardProductController implements Initializable {
                     prod_image = prod_image.replace("\\", "\\\\");
                     Customer customerEntity = new Customer();
                     customerEntity.setCustomerID(String.valueOf(Data.getcID()));
+                    customerEntity.setProductID(prodID);
                     customerEntity.setProductName(prod_name.getText());
                     customerEntity.setType(type);
                     customerEntity.setQuantity(qty);
