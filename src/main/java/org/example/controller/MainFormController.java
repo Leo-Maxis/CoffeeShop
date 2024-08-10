@@ -516,7 +516,7 @@ public class MainFormController implements Initializable {
         customerID();
         try {
             MenuDAO dao = new MenuDAO();
-            totalP  =  dao.menuGetTotal(cID);
+            totalP  =  dao.menuGetTotal(Data.getcID());
             menu_total.setText("$" + totalP);
         } catch (Exception ex) {
             ex.printStackTrace();

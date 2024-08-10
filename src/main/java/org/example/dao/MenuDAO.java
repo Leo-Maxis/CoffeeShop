@@ -19,8 +19,8 @@ public class MenuDAO {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     Product product = new Product(resultSet.getInt("id"),
-                            resultSet.getString("pro_id"),
-                            resultSet.getString("pro_name"),
+                            resultSet.getString("prod_id"),
+                            resultSet.getString("prod_name"),
                             resultSet.getString("type"),
                             resultSet.getInt("quantity"),
                             resultSet.getDouble("price"),
@@ -34,7 +34,7 @@ public class MenuDAO {
     }
 
     public double menuGetTotal(int customer_id) throws SQLException, ClassNotFoundException {
-        String sql  = "select count(price) from customer where customer_id = ?";
+        String sql  = "select sum(price) from customer where customer_id = ?";
         try (Connection connection = DBHelper.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setInt(1, customer_id);
