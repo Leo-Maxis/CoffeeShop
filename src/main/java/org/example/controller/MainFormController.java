@@ -307,6 +307,7 @@ public class MainFormController implements Initializable {
             inventory_form.setVisible(false);
             menu_form.setVisible(true);
             menuDisplayCard();
+            menuDisplayOrder();
         }
     }
 
@@ -495,7 +496,7 @@ public class MainFormController implements Initializable {
     }
 
     //menuShowData
-    public void displayMenuOrder() {
+    public void menuDisplayOrder() {
         try {
             MenuDAO menuDAO = new MenuDAO();
             ObservableList<Product> listMenu = menuDAO.getMenuOrder();
@@ -508,12 +509,30 @@ public class MainFormController implements Initializable {
         }
     }
 
+    //Menu Display Total
+    private double totalP;
+    public void menuDisplayTotal() {
+        customerID();
+        try {
+            MenuDAO dao = new MenuDAO();
+            totalP  =  dao.menuGetTotal(cID);
+            menu_total.setText("$" + totalP);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        //Display inventory form
         displayUsername();
         inventoryTypeList();
         inventoryStatusList();
         inventoryProductsList();
+
+        //Display menu form
         menuDisplayCard();
+        menuDisplayOrder();
+        menuDisplayTotal();
     }
 }

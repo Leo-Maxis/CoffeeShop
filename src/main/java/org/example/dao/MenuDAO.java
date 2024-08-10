@@ -33,4 +33,17 @@ public class MenuDAO {
         return listData;
     }
 
+    public double menuGetTotal(int customer_id) throws SQLException, ClassNotFoundException {
+        String sql  = "select count(price) from customer where customer_id = ?";
+        try (Connection connection = DBHelper.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, customer_id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getDouble(1);
+            }
+        }
+        return 0;
+    }
+
 }
