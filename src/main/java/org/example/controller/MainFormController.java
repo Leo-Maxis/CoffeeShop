@@ -308,6 +308,7 @@ public class MainFormController implements Initializable {
             menu_form.setVisible(true);
             menuDisplayCard();
             menuDisplayOrder();
+            menuDisplayTotal();
         }
     }
 
