@@ -512,15 +512,19 @@ public class MainFormController implements Initializable {
 
     //Menu Display Total
     private double totalP;
-    public void menuDisplayTotal() {
+    public void menuGetTotal() {
         customerID();
         try {
             MenuDAO dao = new MenuDAO();
             totalP  =  dao.menuGetTotal(Data.getcID());
-            menu_total.setText("$" + totalP);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    public void menuDisplayTotal() {
+        menuGetTotal();
+        menu_total.setText("$" + totalP);
     }
 
     @Override

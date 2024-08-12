@@ -138,7 +138,7 @@ public class CardProductController implements Initializable {
                     alert.setContentText("Successfully Added!");
                     alert.showAndWait();
 
-                    mainFormController.menuDisplayTotal();
+                    mainFormController.menuGetTotal();
                 }
             }
         } catch (Exception ex) {
