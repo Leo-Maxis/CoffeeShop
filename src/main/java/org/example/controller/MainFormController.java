@@ -527,6 +527,8 @@ public class MainFormController implements Initializable {
         menu_total.setText("$" + totalP);
     }
 
+    private double amount;
+    private double change;
     public  void menuAmount() {
         menuGetTotal();
         if (menu_amount.getText().isEmpty()) {
@@ -536,8 +538,7 @@ public class MainFormController implements Initializable {
             alert.setContentText("Invalid!");
             alert.showAndWait();
         } else {
-            double amount = Double.parseDouble(menu_amount.getText());
-            double change = 0;
+            amount = Double.parseDouble(menu_amount.getText());
             if (amount < totalP) {
                 menu_amount.setText("");
             } else {
