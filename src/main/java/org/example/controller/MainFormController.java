@@ -284,7 +284,6 @@ public class MainFormController implements Initializable {
                 cID +=1;
             }
             Data.setcID(cID);
-
         }catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -526,6 +525,19 @@ public class MainFormController implements Initializable {
     public void menuDisplayTotal() {
         menuGetTotal();
         menu_total.setText("$" + totalP);
+    }
+
+    public  void menuAmount() {
+        menuGetTotal();
+        if (menu_amount.getText().isEmpty()) {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error message");
+            alert.setHeaderText(null);
+            alert.setContentText("Invalid!");
+            alert.showAndWait();
+        } else {
+
+        }
     }
 
     @Override
