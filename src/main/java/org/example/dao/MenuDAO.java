@@ -11,11 +11,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class MenuDAO {
-    public ObservableList<Product> getMenuOrder() throws SQLException, ClassNotFoundException {
+    public ObservableList<Product> getMenuOrder(int customer_id) throws SQLException, ClassNotFoundException {
         ObservableList<Product> listData = FXCollections.observableArrayList();
-        String sql = "select * from customer";
+        String sql = "select * from customer where customer_id =?";
         try (Connection connection = DBHelper.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+            preparedStatement.setInt(1, customer_id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
                     Product product = new Product(resultSet.getInt("id"),

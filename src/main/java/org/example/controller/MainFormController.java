@@ -498,13 +498,14 @@ public class MainFormController implements Initializable {
 
     //menuShowData
     public void menuDisplayOrder() {
+        customerID();
         try {
             MenuDAO menuDAO = new MenuDAO();
-            ObservableList<Product> listMenu = menuDAO.getMenuOrder();
+            ObservableList<Product> listMenu = menuDAO.getMenuOrder(cID);
             menu_col_ProductName.setCellValueFactory(new PropertyValueFactory<>("productName"));
             menu_col_quantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
             menu_col_price.setCellValueFactory(new PropertyValueFactory<>("price"));
-            menu_tableView.setItems(cardListData);
+            menu_tableView.setItems(listMenu);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
