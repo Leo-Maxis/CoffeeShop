@@ -536,7 +536,14 @@ public class MainFormController implements Initializable {
             alert.setContentText("Invalid!");
             alert.showAndWait();
         } else {
-
+            double amount = Double.parseDouble(menu_amount.getText());
+            double change = 0;
+            if (amount < totalP) {
+                menu_amount.setText("");
+            } else {
+                change = (amount - totalP);
+                menu_change.setText("$" + change);
+            }
         }
     }
 
