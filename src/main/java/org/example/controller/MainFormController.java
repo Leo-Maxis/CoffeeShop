@@ -23,6 +23,7 @@ import org.example.dao.MenuDAO;
 import org.example.dao.ProductDAO;
 import org.example.entity.Data;
 import org.example.entity.Product;
+import org.example.entity.Receipt;
 
 import java.io.File;
 import java.net.URL;
@@ -556,7 +557,46 @@ public class MainFormController implements Initializable {
             alert.setContentText("Please choose your order first!");
             alert.showAndWait();
         } else {
-
+            menuGetTotal();
+            try {
+                if (amount == 0) {
+                    alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Something wrong!");
+                    alert.showAndWait();
+                } else {
+                    alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Confirmation message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Are your sure?");
+                    Optional<ButtonType> option = alert.showAndWait();
+                    if (option.get().equals(ButtonType.OK)) {
+                        customerID();
+                        menuGetTotal();
+                        Receipt entity = new Receipt();
+                        entity.setCustomer_id(cID);
+                        entity.setTotal(totalP);
+                        entity.setEm_username(Data.getUsername());
+                        MenuDAO menuDAO = new MenuDAO();
+                        entity = menuDAO.insertReceipt(entity);
+                        alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Information message");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Successful!");
+                        alert.showAndWait();
+                        menuDisplayOrder();
+                    }else {
+                        alert = new Alert(Alert.AlertType.WARNING);
+                        alert.setTitle("Informaiton message");
+                        alert.setHeaderText(null);
+                        alert.setContentText("Cancelled!");
+                        alert.showAndWait();
+                    }
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
         }
     }
 
