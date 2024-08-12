@@ -548,6 +548,18 @@ public class MainFormController implements Initializable {
         }
     }
 
+    public void menuPayBtn() {
+        if (totalP == 0) {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error message");
+            alert.setHeaderText(null);
+            alert.setContentText("Please choose your order first!");
+            alert.showAndWait();
+        } else {
+
+        }
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //Display inventory form

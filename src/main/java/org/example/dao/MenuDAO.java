@@ -4,11 +4,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.example.database.DBHelper;
 import org.example.entity.Product;
+import org.example.entity.Receipt;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class MenuDAO {
     public ObservableList<Product> getMenuOrder(int customer_id) throws SQLException, ClassNotFoundException {
@@ -45,6 +43,25 @@ public class MenuDAO {
             }
         }
         return 0;
+    }
+
+    public Receipt insertReceipt(Receipt entity) throws SQLException, ClassNotFoundException {
+        String sql = "insert into receipt (customer_id, total, date, em_username) values (?, ?, ?, ?)";
+        try (Connection connection = DBHelper.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            preparedStatement.setInt(1, entity.getCustomer_id());
+            preparedStatement.setDouble(2, entity.getTotal());
+            java.util.Date date = new java.util.Date();
+            java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+            preparedStatement.setString(3, String.valueOf(sqlDate));
+            preparedStatement.setString(4, entity.getEm_username());
+            preparedStatement.executeUpdate();
+            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            if (resultSet.next()) {
+                entity.setId(resultSet.getInt(1));
+            }
+            return entity;
+        }
     }
 
 }
