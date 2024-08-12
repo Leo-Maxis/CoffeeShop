@@ -586,6 +586,7 @@ public class MainFormController implements Initializable {
                         alert.setContentText("Successful!");
                         alert.showAndWait();
                         menuDisplayOrder();
+                        menuRestart();
                     }else {
                         alert = new Alert(Alert.AlertType.WARNING);
                         alert.setTitle("Informaiton message");
@@ -598,6 +599,15 @@ public class MainFormController implements Initializable {
                 ex.printStackTrace();
             }
         }
+    }
+
+    public void menuRestart() {
+        totalP = 0;
+        change = 0;
+        amount = 0;
+        menu_total.setText("$0.0");
+        menu_amount.setText("");
+        menu_change.setText("$0.0");
     }
 
     @Override
