@@ -8,25 +8,25 @@
     </parameter>
     <queryString>
         <![CDATA[SELECT
-     customer.`id` AS customer_id,
-     customer.`customer_id` AS customer_customer_id,
-     customer.`prod_id` AS customer_prod_id,
-     customer.`prod_name` AS customer_prod_name,
-     customer.`type` AS customer_type,
-     customer.`quantity` AS customer_quantity,
-     customer.`price` AS customer_price,
-     customer.`date` AS customer_date,
-     customer.`image` AS customer_image,
-     customer.`em_username` AS customer_em_username,
-     receipt.`id` AS receipt_id,
-     receipt.`customer_id` AS receipt_customer_id,
-     receipt.`total` AS receipt_total,
-     receipt.`date` AS receipt_date,
-     receipt.`em_username` AS receipt_em_username
+     customer.id AS customer_id,
+     customer.customer_id AS customer_customer_id,
+     customer.prod_id AS customer_prod_id,
+     customer.prod_name AS customer_prod_name,
+     customer.type AS customer_type,
+     customer.quantity AS customer_quantity,
+     customer.price AS customer_price,
+     customer.date AS customer_date,
+     customer.image AS customer_image,
+     customer.em_username AS customer_em_username,
+     receipt.id AS receipt_id,
+     receipt.customer_id AS receipt_customer_id,
+     receipt.total AS receipt_total,
+     receipt.date AS receipt_date,
+     receipt.em_username AS receipt_em_username
 FROM
-     `customer` customer INNER JOIN `receipt` receipt ON customer.`customer_id` = receipt.`customer_id`
+     customer customer INNER JOIN receipt receipt ON customer.customer_id = receipt.customer_id
 WHERE
-     receipt.`customer_id` = $P{getReceipt}]]>
+     receipt.customer_id = $P{getReceipt}]]>
     </queryString>
     <field name="customer_id" class="java.lang.Integer">
         <fieldDescription><![CDATA[]]></fieldDescription>
@@ -76,7 +76,7 @@ WHERE
                 <textElement textAlignment="Center">
                     <font fontName="Comic Sans MS" isBold="true"/>
                 </textElement>
-                <text><![CDATA[MarcoMan's Cafe Shop]]></text>
+                <text><![CDATA[Leo Coffee Shop]]></text>
             </staticText>
             <staticText>
                 <reportElement x="112" y="0" width="45" height="9" uuid="68b441f6-5573-4b73-b5fe-a57a66ff218a"/>

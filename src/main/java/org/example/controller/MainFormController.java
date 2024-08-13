@@ -18,19 +18,26 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 import org.example.dao.CustomerDAO;
 import org.example.dao.MenuDAO;
 import org.example.dao.ProductDAO;
+import org.example.database.DBHelper;
 import org.example.entity.Data;
 import org.example.entity.Product;
 import org.example.entity.Receipt;
 
 import java.io.File;
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.*;
 
 public class MainFormController implements Initializable {
@@ -586,7 +593,6 @@ public class MainFormController implements Initializable {
                         alert.setContentText("Successful!");
                         alert.showAndWait();
                         menuDisplayOrder();
-                        menuRestart();
                     }else {
                         alert = new Alert(Alert.AlertType.WARNING);
                         alert.setTitle("Informaiton message");
@@ -652,6 +658,7 @@ public class MainFormController implements Initializable {
         }
     }
 
+    private Connection connection = null;
     public void menuReceiptBtn() {
         if (totalP == 0 || menu_amount.getText().isEmpty()) {
             alert = new Alert(Alert.AlertType.ERROR);
@@ -661,12 +668,25 @@ public class MainFormController implements Initializable {
         } else {
             customerID();
             HashMap map = new HashMap();
-            map.put("getReceipt", cID);
+            map.put("getReceipt", (cID - 1));
 
             try {
+                connection = DBHelper.getConnection();
                 JasperDesign jasperDesign = JRXmlLoader.load("D:\\tester-workspace\\Java_Basic\\CoffeeShop\\src\\main\\resources\\org\\example\\coffeeshop\\reportFile\\Report.jrxml");
+                JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+                JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, connection);
+                JasperViewer.viewReport(jasperPrint, false);
+                menuRestart();
             } catch (Exception ex) {
                 ex.printStackTrace();
+            } finally {
+                if (connection != null) {
+                    try {
+                        connection.close();  // Đóng kết nối khi không sử dụng nữa
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
     }
