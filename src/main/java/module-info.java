@@ -12,6 +12,7 @@ module org.example.coffeeshop {
     requires com.almasb.fxgl.all;
     requires java.sql;
     requires de.jensd.fx.glyphs.fontawesome;
+    requires jasperreports;
 
     opens org.example.coffeeshop to javafx.fxml;
     exports org.example.coffeeshop;

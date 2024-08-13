@@ -18,6 +18,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import org.example.dao.CustomerDAO;
 import org.example.dao.MenuDAO;
 import org.example.dao.ProductDAO;
@@ -28,10 +31,7 @@ import org.example.entity.Receipt;
 import java.io.File;
 import java.net.URL;
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class MainFormController implements Initializable {
 
@@ -635,6 +635,7 @@ public class MainFormController implements Initializable {
                         alert.setContentText("successfully Deleted!");
                         alert.showAndWait();
                         menuDisplayOrder();
+                        menuDisplayTotal();
                     }
                 }
                 else {
@@ -645,6 +646,25 @@ public class MainFormController implements Initializable {
                     alert.showAndWait();
                 }
                 menuDisplayOrder();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    public void menuReceiptBtn() {
+        if (totalP == 0 || menu_amount.getText().isEmpty()) {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Message");
+            alert.setContentText("Please order first");
+            alert.showAndWait();
+        } else {
+            customerID();
+            HashMap map = new HashMap();
+            map.put("getReceipt", cID);
+
+            try {
+                JasperDesign jasperDesign = JRXmlLoader.load("D:\\tester-workspace\\Java_Basic\\CoffeeShop\\src\\main\\resources\\org\\example\\coffeeshop\\reportFile\\Report.jrxml");
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
