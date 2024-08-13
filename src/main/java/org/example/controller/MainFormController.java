@@ -37,7 +37,6 @@ import java.io.File;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.Date;
-import java.sql.SQLException;
 import java.util.*;
 
 public class MainFormController implements Initializable {
@@ -601,6 +600,7 @@ public class MainFormController implements Initializable {
                         alert.showAndWait();
                     }
                 }
+                menuDisplayOrder();
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
@@ -658,7 +658,6 @@ public class MainFormController implements Initializable {
         }
     }
 
-    private Connection connection = null;
     public void menuReceiptBtn() {
         if (totalP == 0 || menu_amount.getText().isEmpty()) {
             alert = new Alert(Alert.AlertType.ERROR);
@@ -670,23 +669,14 @@ public class MainFormController implements Initializable {
             HashMap map = new HashMap();
             map.put("getReceipt", (cID - 1));
 
-            try {
-                connection = DBHelper.getConnection();
+            try (Connection conn = DBHelper.getConnection()) {
                 JasperDesign jasperDesign = JRXmlLoader.load("D:\\tester-workspace\\Java_Basic\\CoffeeShop\\src\\main\\resources\\org\\example\\coffeeshop\\reportFile\\Report.jrxml");
                 JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
-                JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, connection);
+                JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, map, conn);
                 JasperViewer.viewReport(jasperPrint, false);
                 menuRestart();
             } catch (Exception ex) {
                 ex.printStackTrace();
-            } finally {
-                if (connection != null) {
-                    try {
-                        connection.close();  // Đóng kết nối khi không sử dụng nữa
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                }
             }
         }
     }

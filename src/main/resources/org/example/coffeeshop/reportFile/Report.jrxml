@@ -24,7 +24,7 @@
      receipt.date AS receipt_date,
      receipt.em_username AS receipt_em_username
 FROM
-     customer customer INNER JOIN receipt receipt ON customer.customer_id = receipt.customer_id
+     customer INNER JOIN receipt ON customer.customer_id = receipt.customer_id
 WHERE
      receipt.customer_id = $P{getReceipt}]]>
     </queryString>
