@@ -64,4 +64,13 @@ public class MenuDAO {
         }
     }
 
+    public boolean deleteCustomer (int id) throws SQLException, ClassNotFoundException {
+        String sql = "delete from customer where id = ?";
+        try (Connection connection = DBHelper.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, id);
+            return preparedStatement.executeUpdate() > 0;
+        }
+    }
+
 }

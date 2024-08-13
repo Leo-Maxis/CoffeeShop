@@ -601,6 +601,56 @@ public class MainFormController implements Initializable {
         }
     }
 
+    private int getID;
+    public void menuSelectOrder() {
+        Product product = menu_tableView.getSelectionModel().getSelectedItem();
+        int num = menu_tableView.getSelectionModel().getSelectedIndex();
+        if ((num - 1) < -1 ) {
+            return;
+        }
+        getID = product.getId();
+    }
+
+    public void menuRemoveBtn() {
+        if (getID == 0) {
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error message");
+            alert.setHeaderText(null);
+            alert.setContentText("Please choose at least one item to remove!");
+            alert.showAndWait();
+        } else {
+            try {
+                alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation!");
+                alert.setHeaderText(null);
+                alert.setContentText("Are you sure?");
+                Optional<ButtonType> option = alert.showAndWait();
+                if (option.get().equals(ButtonType.OK)) {
+                    MenuDAO dao = new MenuDAO();
+                    var result = dao.deleteCustomer(getID);
+                    if (result) {
+                        alert = new Alert(Alert.AlertType.INFORMATION);
+                        alert.setTitle("Error Message");
+                        alert.setHeaderText(null);
+                        alert.setContentText("successfully Deleted!");
+                        alert.showAndWait();
+                        menuDisplayOrder();
+                    }
+                }
+                else {
+                    alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Informaiton message");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Cancelled!");
+                    alert.showAndWait();
+                }
+                menuDisplayOrder();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
     public void menuRestart() {
         totalP = 0;
         change = 0;
