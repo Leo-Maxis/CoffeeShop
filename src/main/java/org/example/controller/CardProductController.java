@@ -106,7 +106,7 @@ public class CardProductController implements Initializable {
                     alert.setContentText("Invalid. This product is Out of Stock!!");
                     alert.showAndWait();
                 } else {
-                    prod_image = prod_image.replace("\\", "\\\\");
+                    String correctedPath = prod_image.replace("\\", "\\\\");
                     Customer customerEntity = new Customer();
                     customerEntity.setCustomerID(String.valueOf(Data.getcID()));
                     customerEntity.setProductID(prodID);
@@ -115,7 +115,7 @@ public class CardProductController implements Initializable {
                     customerEntity.setQuantity(qty);
                     totalP = (qty * price);
                     customerEntity.setPrice(totalP);
-                    customerEntity.setImage(prod_image);
+                    customerEntity.setImage(correctedPath);
                     customerEntity.setEm_username(Data.getUsername());
                     CustomerDAO customerDAO = new CustomerDAO();
                     customerEntity = customerDAO.insertCustomer(customerEntity);
@@ -128,7 +128,7 @@ public class CardProductController implements Initializable {
                     productEntity.setStock(upStock);
                     productEntity.setPrice(price);
                     productEntity.setStatus(checkAvailable);
-                    productEntity.setImage(prod_image);
+                    productEntity.setImage(correctedPath);
                     productEntity.setDate(Date.valueOf(prod_date));
                     productEntity.setProductID(prodID);
                     productDAO.updateStockProductPlus(productEntity);
