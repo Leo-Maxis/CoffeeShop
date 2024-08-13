@@ -167,6 +167,24 @@ public class MainFormController implements Initializable {
     @FXML
     private AnchorPane dashboard_form;
 
+    @FXML
+    private TableColumn<?, ?> customers_col_cashier;
+
+    @FXML
+    private TableColumn<?, ?> customers_col_customer;
+
+    @FXML
+    private TableColumn<?, ?> customers_col_date;
+
+    @FXML
+    private TableColumn<?, ?> customers_col_total;
+
+    @FXML
+    private AnchorPane customers_form;
+
+    @FXML
+    private TableView<?> customers_tableView;
+
 
     private Alert alert;
     private Image image;
