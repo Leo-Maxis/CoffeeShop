@@ -14,7 +14,7 @@ public class CustomerDAO {
         String sql = "Insert into customer (customer_id, prod_id, prod_name, type, quantity, price, date, image, em_username) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection connection = DBHelper.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            preparedStatement.setString(1, entity.getCustomerID());
+            preparedStatement.setInt(1, entity.getCustomerID());
             preparedStatement.setString(2, entity.getProductID());
             preparedStatement.setString(3, entity.getProductName());
             preparedStatement.setString(4, entity.getType());

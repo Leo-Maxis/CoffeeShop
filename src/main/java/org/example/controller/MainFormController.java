@@ -297,11 +297,12 @@ public class MainFormController implements Initializable {
     }
 
     private int cID;
+    private int checkID;
     public void customerID() {
         try {
             CustomerDAO customerDAO = new CustomerDAO();
             cID = customerDAO.maxCustomerID();
-            int checkID = 0;
+            checkID = 0;
             checkID = customerDAO.checkCustomerID();
             if (cID == 0) {
                 cID +=1;
