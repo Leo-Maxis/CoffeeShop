@@ -29,7 +29,6 @@ import org.example.dao.CustomerDAO;
 import org.example.dao.MenuDAO;
 import org.example.dao.ProductDAO;
 import org.example.database.DBHelper;
-import org.example.entity.Customer;
 import org.example.entity.Data;
 import org.example.entity.Product;
 import org.example.entity.Receipt;
@@ -169,22 +168,22 @@ public class MainFormController implements Initializable {
     private AnchorPane dashboard_form;
 
     @FXML
-    private TableColumn<Customer, String> customers_col_cashier;
+    private TableColumn<Receipt, String> customers_col_cashier;
 
     @FXML
-    private TableColumn<Customer, String> customers_col_customer;
+    private TableColumn<Receipt, String> customers_col_customerID;
 
     @FXML
-    private TableColumn<Customer, String> customers_col_date;
+    private TableColumn<Receipt, String> customers_col_date;
 
     @FXML
-    private TableColumn<Customer, String> customers_col_total;
+    private TableColumn<Receipt, String> customers_col_total;
 
     @FXML
     private AnchorPane customers_form;
 
     @FXML
-    private TableView<Customer> customers_tableView;
+    private TableView<Receipt> customers_tableView;
 
 
     private Alert alert;
@@ -316,7 +315,17 @@ public class MainFormController implements Initializable {
     }
 
     public void customerTableList() {
-
+        try {
+            CustomerDAO dao = new CustomerDAO();
+            ObservableList<Receipt> customerList = dao.customerDataList();
+            customers_col_customerID.setCellValueFactory(new PropertyValueFactory<>("customer_id"));
+            customers_col_total.setCellValueFactory(new PropertyValueFactory<>("total"));
+            customers_col_date.setCellValueFactory(new PropertyValueFactory<>("date"));
+            customers_col_cashier.setCellValueFactory(new PropertyValueFactory<>("em_username"));
+            customers_tableView.setItems(customerList);
+        }catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
 
@@ -325,10 +334,12 @@ public class MainFormController implements Initializable {
             dashboard_form.setVisible(true);
             inventory_form.setVisible(false);
             menu_form.setVisible(false);
+            customers_form.setVisible(false);
         }else if (event.getSource() == inventory_btn) {
             dashboard_form.setVisible(false);
             inventory_form.setVisible(true);
             menu_form.setVisible(false);
+            customers_form.setVisible(false);
             inventoryTypeList();
             inventoryStatusList();
             inventoryProductsList();
@@ -336,9 +347,16 @@ public class MainFormController implements Initializable {
             dashboard_form.setVisible(false);
             inventory_form.setVisible(false);
             menu_form.setVisible(true);
+            customers_form.setVisible(false);
             menuDisplayCard();
             menuDisplayOrder();
             menuDisplayTotal();
+        } else if (event.getSource() == customers_btn) {
+            dashboard_form.setVisible(false);
+            inventory_form.setVisible(false);
+            menu_form.setVisible(false);
+            customers_form.setVisible(true);
+            customerTableList();
         }
     }
 
@@ -726,5 +744,8 @@ public class MainFormController implements Initializable {
         menuDisplayCard();
         menuDisplayOrder();
         menuDisplayTotal();
+
+        //Display customer
+        customerTableList();
     }
 }

@@ -54,7 +54,7 @@
                               <Button fx:id="dashboard_btn" layoutX="6.0" layoutY="168.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="210.0" styleClass="nav-btn" stylesheets="@../layoutDesgin/MainDesign.css" text="Dashboard" />
                               <Button fx:id="inventory_btn" layoutX="6.0" layoutY="221.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="210.0" styleClass="nav-btn" stylesheets="@../layoutDesgin/MainDesign.css" text="Inventory" />
                               <Button fx:id="menu_btn" layoutX="6.0" layoutY="274.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="210.0" styleClass="nav-btn" stylesheets="@../layoutDesgin/MainDesign.css" text="Menu" />
-                              <Button fx:id="customers_btn" layoutX="6.0" layoutY="326.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="210.0" styleClass="nav-btn" stylesheets="@../layoutDesgin/MainDesign.css" text="Customers" />
+                              <Button fx:id="customers_btn" layoutX="6.0" layoutY="326.0" mnemonicParsing="false" onAction="#switchForm" prefHeight="40.0" prefWidth="210.0" styleClass="nav-btn" stylesheets="@../layoutDesgin/MainDesign.css" text="Customers" />
                               <Button fx:id="logout_btn" layoutX="14.0" layoutY="561.0" mnemonicParsing="false" onAction="#logOut" stylesheets="@../layoutDesgin/MainDesign.css" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="14.0">
                                  <graphic>
                                     <FontAwesomeIconView fill="WHITE" glyphName="SIGN_OUT" size="2em" />
@@ -328,7 +328,7 @@
                                     </Label>
                                     <TableView fx:id="customers_tableView" layoutX="14.0" layoutY="50.0" prefHeight="505.0" prefWidth="821.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="17.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="50.0">
                                       <columns>
-                                        <TableColumn fx:id="customers_col_customer" prefWidth="199.0" text="Customer ID" />
+                                        <TableColumn fx:id="customers_col_customerID" prefWidth="199.0" text="Customer ID" />
                                         <TableColumn fx:id="customers_col_total" prefWidth="210.0" text="Total ($)" />
                                           <TableColumn fx:id="customers_col_date" prefWidth="175.0" text="Date" />
                                           <TableColumn fx:id="customers_col_cashier" prefWidth="235.0" text="Cashier" />

@@ -60,7 +60,7 @@ public class CustomerDAO {
 
     public ObservableList<Receipt> customerDataList() throws SQLException, ClassNotFoundException {
         ObservableList<Receipt> listCustomer = FXCollections.observableArrayList();
-        String sql = "select * from reciept";
+        String sql = "select * from receipt";
         try (Connection connection = DBHelper.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
