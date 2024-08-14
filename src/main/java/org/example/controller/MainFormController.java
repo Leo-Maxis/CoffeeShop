@@ -10,6 +10,8 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.AreaChart;
+import javafx.scene.chart.BarChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -26,6 +28,7 @@ import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
 import org.example.dao.CustomerDAO;
+import org.example.dao.DashboardDAO;
 import org.example.dao.MenuDAO;
 import org.example.dao.ProductDAO;
 import org.example.database.DBHelper;
@@ -184,10 +187,50 @@ public class MainFormController implements Initializable {
 
     @FXML
     private TableView<Receipt> customers_tableView;
+    @FXML
+    private BarChart<?, ?> dashboard_CustomerChart;
+
+    @FXML
+    private AreaChart<?, ?> dashboard_IncomeChart;
+
+    @FXML
+    private Label dashboard_NC;
+
+    @FXML
+    private Label dashboard_NSP;
+
+    @FXML
+    private Label dashboard_TI;
+
+    @FXML
+    private Label dashboard_TotalI;
+
 
 
     private Alert alert;
     private Image image;
+
+    public void dashboardDisplayNC() {
+        try {
+            int customerCount = 0;
+            DashboardDAO dao = new DashboardDAO();
+            customerCount = dao.countCustomer();
+            dashboard_NC.setText(String.valueOf(customerCount));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void dashboardDisplayTI() {
+        try {
+            double todayIncome = 0;
+            DashboardDAO dao = new DashboardDAO();
+            todayIncome = dao.todayIncome();
+            dashboard_TI.setText("$" + todayIncome);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
 
     private ObservableList<Product> cardListData = FXCollections.observableArrayList();
 
