@@ -106,7 +106,8 @@ public class CardProductController implements Initializable {
                     alert.setContentText("Invalid. This product is Out of Stock!!");
                     alert.showAndWait();
                 } else {
-                    String correctedPath = prod_image.replace("\\", "\\\\");
+
+                    String correctedPath = prod_image.contains("\\\\") ? prod_image : prod_image.replace("\\", "\\\\");
                     Customer customerEntity = new Customer();
                     customerEntity.setCustomerID(Integer.parseInt(String.valueOf(Data.getcID())));
                     customerEntity.setProductID(prodID);
