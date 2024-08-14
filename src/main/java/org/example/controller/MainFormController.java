@@ -29,6 +29,7 @@ import org.example.dao.CustomerDAO;
 import org.example.dao.MenuDAO;
 import org.example.dao.ProductDAO;
 import org.example.database.DBHelper;
+import org.example.entity.Customer;
 import org.example.entity.Data;
 import org.example.entity.Product;
 import org.example.entity.Receipt;
@@ -168,22 +169,22 @@ public class MainFormController implements Initializable {
     private AnchorPane dashboard_form;
 
     @FXML
-    private TableColumn<?, ?> customers_col_cashier;
+    private TableColumn<Customer, String> customers_col_cashier;
 
     @FXML
-    private TableColumn<?, ?> customers_col_customer;
+    private TableColumn<Customer, String> customers_col_customer;
 
     @FXML
-    private TableColumn<?, ?> customers_col_date;
+    private TableColumn<Customer, String> customers_col_date;
 
     @FXML
-    private TableColumn<?, ?> customers_col_total;
+    private TableColumn<Customer, String> customers_col_total;
 
     @FXML
     private AnchorPane customers_form;
 
     @FXML
-    private TableView<?> customers_tableView;
+    private TableView<Customer> customers_tableView;
 
 
     private Alert alert;
@@ -313,6 +314,11 @@ public class MainFormController implements Initializable {
             ex.printStackTrace();
         }
     }
+
+    public void customerTableList() {
+
+    }
+
 
     public void switchForm(ActionEvent event) {
         if (event.getSource() == dashboard_btn) {

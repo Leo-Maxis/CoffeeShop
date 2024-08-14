@@ -1,7 +1,10 @@
 package org.example.dao;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.example.database.DBHelper;
 import org.example.entity.Customer;
+import org.example.entity.Receipt;
 
 import java.sql.*;
 import java.util.Date;
@@ -53,5 +56,24 @@ public class CustomerDAO {
             }
             return 0;
         }
+    }
+
+    public ObservableList<Receipt> customerDataList() throws SQLException, ClassNotFoundException {
+        ObservableList<Receipt> listCustomer = FXCollections.observableArrayList();
+        String sql = "select * from reciept";
+        try (Connection connection = DBHelper.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Receipt receipt = new Receipt(resultSet.getInt("id"),
+                            resultSet.getInt("customer_id"),
+                            resultSet.getDouble("total"),
+                            resultSet.getDate("date"),
+                            resultSet.getString("em_username"));
+                    listCustomer.add(receipt);
+                }
+            }
+        }
+        return listCustomer;
     }
 }
