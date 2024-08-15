@@ -33,4 +33,28 @@ public class DashboardDAO {
         }
     }
 
+    public Double totalIncome() throws SQLException, ClassNotFoundException {
+        String sql = "select sum(total) from receipt";
+        try (Connection connection = DBHelper.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getDouble(1);
+            }
+            return (double) 0;
+        }
+    }
+
+    public int countQuantity() throws SQLException, ClassNotFoundException {
+        String sql = "select count(quantity) from customer";
+        try (Connection connection = DBHelper.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+            return 0;
+        }
+    }
+
 }

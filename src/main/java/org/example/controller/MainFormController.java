@@ -232,6 +232,28 @@ public class MainFormController implements Initializable {
         }
     }
 
+    public void dashboardTotalI() {
+        try {
+            double totalIncome = 0;
+            DashboardDAO dao = new DashboardDAO();
+            totalIncome = dao.totalIncome();
+            dashboard_TotalI.setText("$" + totalIncome);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void dashboardNSP() {
+        try {
+            int countQuantity = 0;
+            DashboardDAO dao = new DashboardDAO();
+            countQuantity = dao.countQuantity();
+            dashboard_NSP.setText("" + countQuantity);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
     private ObservableList<Product> cardListData = FXCollections.observableArrayList();
 
     //combobox type
@@ -379,6 +401,10 @@ public class MainFormController implements Initializable {
             inventory_form.setVisible(false);
             menu_form.setVisible(false);
             customers_form.setVisible(false);
+            dashboardDisplayNC();
+            dashboardDisplayTI();
+            dashboardTotalI();
+            dashboardNSP();
         }else if (event.getSource() == inventory_btn) {
             dashboard_form.setVisible(false);
             inventory_form.setVisible(true);
@@ -791,5 +817,11 @@ public class MainFormController implements Initializable {
 
         //Display customer
         customerTableList();
+
+        //Dashboard
+        dashboardDisplayNC();
+        dashboardDisplayTI();
+        dashboardTotalI();
+        dashboardNSP();
     }
 }
