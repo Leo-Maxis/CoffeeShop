@@ -20,6 +20,11 @@ public class Receipt {
         this.em_username = em_username;
     }
 
+    public Receipt(Date date, double total) {
+        this.date = date;
+        this.total = total;
+    }
+
     public int getId() {
         return id;
     }

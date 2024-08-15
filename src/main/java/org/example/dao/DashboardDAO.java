@@ -1,6 +1,9 @@
 package org.example.dao;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.example.database.DBHelper;
+import org.example.entity.Receipt;
 
 import java.sql.*;
 import java.util.Date;
@@ -56,5 +59,35 @@ public class DashboardDAO {
             return 0;
         }
     }
+
+    public ObservableList<Receipt> incomeDate() throws SQLException, ClassNotFoundException {
+        ObservableList<Receipt> receipts = FXCollections.observableArrayList();
+        String sql = "select date, sum(total) as total_sum from receipt GROUP BY date ORDER BY CAST(date as DATETIME)";
+        try (Connection connection = DBHelper.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery();) {
+                while (resultSet.next()) {
+                    Date date = resultSet.getDate("date");
+                    float totalSum = resultSet.getFloat("total_sum");
+                    receipts.add(new Receipt((java.sql.Date) date, (double) totalSum));
+                }
+            }
+
+        }
+        return receipts;
+    }
+
+    public Float incomeTotal() throws SQLException, ClassNotFoundException {
+        String sql = "select SUM(total) from receipt GROUP BY date ORDER BY CAST(date as DATETIME)";
+        try (Connection connection = DBHelper.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                return resultSet.getFloat(1);
+            }
+        }
+        return (float) 0;
+    }
+
 
 }

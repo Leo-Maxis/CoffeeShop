@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -254,6 +255,59 @@ public class MainFormController implements Initializable {
         }
     }
 
+    public void dashboardIncomeChart() {
+        dashboard_IncomeChart.getData().clear();
+        XYChart.Series chart = new XYChart.Series();
+        try {
+            DashboardDAO dao = new DashboardDAO();
+            ObservableList<Receipt> receipts = dao.incomeDate();
+            for (Receipt receipt : receipts) {
+                String incomeDate = receipt.getDate().toString();
+                Float incomeTotal = (float) receipt.getTotal();
+                chart.getData().add(new XYChart.Data<>(incomeDate, incomeTotal));
+            }
+            dashboard_IncomeChart.getData().add(chart);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void switchForm(ActionEvent event) {
+        if (event.getSource() == dashboard_btn) {
+            dashboard_form.setVisible(true);
+            inventory_form.setVisible(false);
+            menu_form.setVisible(false);
+            customers_form.setVisible(false);
+            dashboardDisplayNC();
+            dashboardDisplayTI();
+            dashboardTotalI();
+            dashboardNSP();
+            dashboardIncomeChart();
+        }else if (event.getSource() == inventory_btn) {
+            dashboard_form.setVisible(false);
+            inventory_form.setVisible(true);
+            menu_form.setVisible(false);
+            customers_form.setVisible(false);
+            inventoryTypeList();
+            inventoryStatusList();
+            inventoryProductsList();
+        }else if (event.getSource() == menu_btn) {
+            dashboard_form.setVisible(false);
+            inventory_form.setVisible(false);
+            menu_form.setVisible(true);
+            customers_form.setVisible(false);
+            menuDisplayCard();
+            menuDisplayOrder();
+            menuDisplayTotal();
+        } else if (event.getSource() == customers_btn) {
+            dashboard_form.setVisible(false);
+            inventory_form.setVisible(false);
+            menu_form.setVisible(false);
+            customers_form.setVisible(true);
+            customerTableList();
+        }
+    }
+
     private ObservableList<Product> cardListData = FXCollections.observableArrayList();
 
     //combobox type
@@ -394,41 +448,6 @@ public class MainFormController implements Initializable {
         }
     }
 
-
-    public void switchForm(ActionEvent event) {
-        if (event.getSource() == dashboard_btn) {
-            dashboard_form.setVisible(true);
-            inventory_form.setVisible(false);
-            menu_form.setVisible(false);
-            customers_form.setVisible(false);
-            dashboardDisplayNC();
-            dashboardDisplayTI();
-            dashboardTotalI();
-            dashboardNSP();
-        }else if (event.getSource() == inventory_btn) {
-            dashboard_form.setVisible(false);
-            inventory_form.setVisible(true);
-            menu_form.setVisible(false);
-            customers_form.setVisible(false);
-            inventoryTypeList();
-            inventoryStatusList();
-            inventoryProductsList();
-        }else if (event.getSource() == menu_btn) {
-            dashboard_form.setVisible(false);
-            inventory_form.setVisible(false);
-            menu_form.setVisible(true);
-            customers_form.setVisible(false);
-            menuDisplayCard();
-            menuDisplayOrder();
-            menuDisplayTotal();
-        } else if (event.getSource() == customers_btn) {
-            dashboard_form.setVisible(false);
-            inventory_form.setVisible(false);
-            menu_form.setVisible(false);
-            customers_form.setVisible(true);
-            customerTableList();
-        }
-    }
 
     public void inventoryAddBtn() {
         if (iventory_ProductID.getText().isEmpty() || iventory_ProductName.getText().isEmpty() || iventory_type.getSelectionModel().getSelectedItem() == null
@@ -823,5 +842,6 @@ public class MainFormController implements Initializable {
         dashboardDisplayTI();
         dashboardTotalI();
         dashboardNSP();
+        dashboardIncomeChart();
     }
 }
