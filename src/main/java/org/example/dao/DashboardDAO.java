@@ -77,17 +77,4 @@ public class DashboardDAO {
         return receipts;
     }
 
-    public Float incomeTotal() throws SQLException, ClassNotFoundException {
-        String sql = "select SUM(total) from receipt GROUP BY date ORDER BY CAST(date as DATETIME)";
-        try (Connection connection = DBHelper.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()){
-                return resultSet.getFloat(1);
-            }
-        }
-        return (float) 0;
-    }
-
-
 }
