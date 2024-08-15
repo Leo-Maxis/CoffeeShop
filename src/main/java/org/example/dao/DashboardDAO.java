@@ -77,4 +77,21 @@ public class DashboardDAO {
         return receipts;
     }
 
+    public ObservableList<Receipt> customerChart() throws SQLException, ClassNotFoundException {
+        ObservableList<Receipt> receipts = FXCollections.observableArrayList();
+        String sql = "select date, count(id) as customer_id from receipt GROUP BY date ORDER BY CAST(date as DATETIME)";
+        try (Connection connection = DBHelper.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            try (ResultSet resultSet = preparedStatement.executeQuery();) {
+                while (resultSet.next()) {
+                    Date date = resultSet.getDate("date");
+                    int countID = resultSet.getInt("customer_id");
+                    receipts.add(new Receipt((java.sql.Date) date, countID));
+                }
+            }
+
+        }
+        return receipts;
+    }
+
 }

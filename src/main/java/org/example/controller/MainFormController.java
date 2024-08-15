@@ -272,6 +272,23 @@ public class MainFormController implements Initializable {
         }
     }
 
+    public void dashboardCustomerChart() {
+        dashboard_CustomerChart.getData().clear();
+        XYChart.Series chart = new XYChart.Series();
+        try {
+            DashboardDAO dao = new DashboardDAO();
+            ObservableList<Receipt> receipts = dao.customerChart();
+            for (Receipt receipt : receipts) {
+                String date = receipt.getDate().toString();
+                int countID =  receipt.getId();
+                chart.getData().add(new XYChart.Data<>(date, countID));
+            }
+            dashboard_CustomerChart.getData().add(chart);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public void switchForm(ActionEvent event) {
         if (event.getSource() == dashboard_btn) {
             dashboard_form.setVisible(true);
@@ -283,6 +300,7 @@ public class MainFormController implements Initializable {
             dashboardTotalI();
             dashboardNSP();
             dashboardIncomeChart();
+            dashboardCustomerChart();
         }else if (event.getSource() == inventory_btn) {
             dashboard_form.setVisible(false);
             inventory_form.setVisible(true);
@@ -843,5 +861,6 @@ public class MainFormController implements Initializable {
         dashboardTotalI();
         dashboardNSP();
         dashboardIncomeChart();
+        dashboardCustomerChart();
     }
 }

@@ -25,6 +25,11 @@ public class Receipt {
         this.total = total;
     }
 
+    public Receipt(Date date, int id) {
+        this.date = date;
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }
